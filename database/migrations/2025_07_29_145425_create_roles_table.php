@@ -16,16 +16,16 @@ return new class extends Migration
             $table->string('rl_name');
             $table->string('rl_description')->nullable();
 
-            $table->timestamp('rl_created_at')->nullable();
-            $table->timestamp('rl_updated_at')->nullable();
-            $table->timestamp('rl_deleted_at')->nullable();
+            $table->unsignedBigInteger('rl_created_at')->nullable();
+            $table->unsignedBigInteger('rl_updated_at')->nullable();
+            $table->unsignedBigInteger('rl_deleted_at')->nullable();
 
-            $table->unsignedBigInteger('rl_create_by');
-            $table->unsignedBigInteger('rl_update_by')->nullable();
+            $table->unsignedBigInteger('rl_created_by');
+            $table->unsignedBigInteger('rl_updated_by')->nullable();
             $table->unsignedBigInteger('rl_deleted_by')->nullable();
-            $table->string('rl_sys_note', 255)->nullable();
+            $table->string('rl_sys_note')->nullable();
 
-            $table->foreign('rl_update_by')->references('usr_id')->on('users')->onDelete('cascade');
+            $table->foreign('rl_updated_by')->references('usr_id')->on('users')->onDelete('cascade');
             $table->foreign('rl_deleted_by')->references('usr_id')->on('users')->onDelete('cascade');
         });
     }
