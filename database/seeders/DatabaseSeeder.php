@@ -34,21 +34,23 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
 
-        Users::factory()->create([
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
-            'email_verified_at' => now(),
-            'password' => bcrypt('password'),
-            'usr_role_id' => 1,
-            'usr_created_by' => 1,
-            'usr_deleted_by' => null,
-            'usr_sys_note' => 'Initial admin user',
-        ]);
+        // Users::factory()->create([
+        //     'name' => 'Admin User',
+        //     'email' => 'admin@example.com',
+        //     'email_verified_at' => now(),
+        //     'password' => bcrypt('password'),
+        //     'usr_role_id' => 1,
+        //     'usr_created_by' => 1,
+        //     'usr_updated_by' => null,
+        //     'usr_deleted_by' => null,
+        //     'usr_sys_note' => 'Initial admin user',
+        // ]);
 
         // Roles::factory()->create([
         //     'rl_name' => 'Admin',
         //     'rl_description' => 'Administrator role',
-        //     'rl_created_by' => 1,
+        //     'rl_create_by' => 1,
+        //     'created_at' => $now,
         // ]);
 
         // Majors::factory()->create([
