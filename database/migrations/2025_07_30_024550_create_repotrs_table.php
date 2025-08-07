@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('repotrs', function (Blueprint $table) {
+        Schema::create('reports', function (Blueprint $table) {
             $table->bigIncrements('rps_id');
             $table->unsignedBigInteger('post_id');
             $table->unsignedBigInteger('rps_create_by');
@@ -22,9 +22,9 @@ return new class extends Migration
             $table->string('rps_sys_note', 255)->nullable();
 
             $table->foreign('post_id')->references('pst_id')->on('posts');
-            $table->foreign('rps_create_by')->references('id')->on('users');
-            $table->foreign('rps_update_by')->references('id')->on('users');
-            $table->foreign('rps_deleted_by')->references('id')->on('users');
+            $table->foreign('rps_create_by')->references('usr_id')->on('users');
+            $table->foreign('rps_update_by')->references('usr_id')->on('users');
+            $table->foreign('rps_deleted_by')->references('usr_id')->on('users');
         });
     }
 

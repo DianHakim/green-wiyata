@@ -12,14 +12,29 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('usr_id');
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->unsignedBigInteger('usr_role_id');
             $table->rememberToken();
             $table->timestamps();
+            $table->unsignedBigInteger('usr_created_by')->unsigned()->nullable();
+            $table->unsignedBigInteger('usr_deleted_by')->unsigned()->nullable();
+            $table->unsignedBigInteger('usr_updated_by')->unsigned()->nullable();
+            $table->softDeletes();
+            $table->string('usr_sys_note')->nullable();
+
+            $table->foreign('usr_created_by')->references('usr_id')->on('users')->onDelete('cascade');
+            $table->foreign('usr_updated_by')->references('usr_id')->on('users')->onDelete('cascade');
+            $table->foreign('usr_deleted_by')->references('usr_id')->on('users')->onDelete('cascade');
+
+            $table->renameColumn('updated_at', 'usr_updated_at');
+            $table->renameColumn('created_at', 'usr_created_at');
+            $table->renameColumn('deleted_at', 'usr_deleted_at');
         });
+
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();

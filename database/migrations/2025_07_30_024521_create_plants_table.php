@@ -17,18 +17,20 @@ return new class extends Migration
             $table->date('pts_date');
             $table->string('pts_img_path', 255)->nullable();
             $table->text('pts_description')->nullable();
+
             $table->unsignedBigInteger('location_id');
             $table->unsignedBigInteger('pts_create_by');
             $table->unsignedBigInteger('pts_update_by')->nullable();
             $table->unsignedBigInteger('pts_deleted_by')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
             $table->string('pts_sys_note', 255)->nullable();
 
             $table->foreign('location_id')->references('lcn_id')->on('locations');
-            $table->foreign('pts_create_by')->references('id')->on('users');
-            $table->foreign('pts_update_by')->references('id')->on('users');
-            $table->foreign('pts_deleted_by')->references('id')->on('users');
+            $table->foreign('pts_create_by')->references('usr_id')->on('users');
+            $table->foreign('pts_update_by')->references('usr_id')->on('users');
+            $table->foreign('pts_deleted_by')->references('usr_id')->on('users');
         });
     }
 

@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Type_Plants extends Model
+class Typeplants extends Model
 {
-    /** @use HasFactory<\Database\Factories\TypePlantsFactory> */
+    /** @use HasFactory<\Database\Factories\TypeplantsFactory> */
     use HasFactory;
 }

@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Trash_Bag extends Model
+class Trashcan extends Model
 {
-    /** @use HasFactory<\Database\Factories\TrashBagFactory> */
+    /** @use HasFactory<\Database\Factories\TrashcanFactory> */
     use HasFactory;
 }

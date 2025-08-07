@@ -16,17 +16,20 @@ return new class extends Migration
             $table->integer('cls_level');
             $table->unsignedBigInteger('mjr_id');
             $table->bigInteger('cls_number');
-            $table->timestamps();
-            $table->softDeletes();
+
+            $table->timestamp('cls_created_at')->nullable();
+            $table->timestamp('cls_updated_at')->nullable();
+            $table->timestamp('cls_deleted_at')->nullable();
+
             $table->unsignedBigInteger('cls_create_by');
             $table->unsignedBigInteger('cls_update_by')->nullable();
             $table->unsignedBigInteger('cls_deleted_by')->nullable();
             $table->string('cls_sys_note', 255)->nullable();
 
             $table->foreign('mjr_id')->references('mjr_id')->on('majors');
-            $table->foreign('cls_create_by')->references('id')->on('users');
-            $table->foreign('cls_update_by')->references('id')->on('users');
-            $table->foreign('cls_deleted_by')->references('id')->on('users');
+            $table->foreign('cls_create_by')->references('usr_id')->on('users');
+            $table->foreign('cls_update_by')->references('usr_id')->on('users');
+            $table->foreign('cls_deleted_by')->references('usr_id')->on('users');
         });
     }
 

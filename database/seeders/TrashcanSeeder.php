@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class TrashBagSeeder extends Seeder
+class TrashcanSeeder extends Seeder
 {
     /**
      * Run the database seeds.

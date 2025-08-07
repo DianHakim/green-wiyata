@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('trash__bags', function (Blueprint $table) {
+        Schema::create('trashcan', function (Blueprint $table) {
             $table->bigIncrements('tbg_id');
             $table->string('tbg_name', 255);
             $table->integer('tbg_level');
@@ -27,9 +27,9 @@ return new class extends Migration
             $table->string('tbg_sys_note', 255)->nullable();
 
             $table->foreign('locations_id')->references('lcn_id')->on('locations');
-            $table->foreign('tbg_create_by')->references('id')->on('users');
-            $table->foreign('tbg_update_by')->references('id')->on('users');
-            $table->foreign('tbg_deleted_by')->references('id')->on('users');
+            $table->foreign('tbg_create_by')->references('usr_id')->on('users');
+            $table->foreign('tbg_update_by')->references('usr_id')->on('users');
+            $table->foreign('tbg_deleted_by')->references('usr_id')->on('users');
         });
     }
 
@@ -38,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('trash__bags');
+        Schema::dropIfExists('trashcans');
     }
 };

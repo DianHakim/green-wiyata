@@ -11,19 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('type__plants', function (Blueprint $table) {
+Schema::create('typeplants', function (Blueprint $table) {
             $table->bigIncrements('tps_id');
             $table->string('tps_type', 255);
-            $table->unsignedBigInteger('tps_create_by');
+            $table->unsignedBigInteger('tps_create_by')->nullable();
             $table->unsignedBigInteger('tps_update_by')->nullable();
             $table->unsignedBigInteger('tps_deleted_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->string('tps_sys_note', 255)->nullable();
 
-            $table->foreign('tps_create_by')->references('id')->on('users');
-            $table->foreign('tps_update_by')->references('id')->on('users');
-            $table->foreign('tps_deleted_by')->references('id')->on('users');
+            $table->foreign('tps_create_by')->references('usr_id')->on('users');
+            $table->foreign('tps_update_by')->references('usr_id')->on('users');
+            $table->foreign('tps_deleted_by')->references('usr_id')->on('users');
         });
     }
 
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('type__plants');
+        Schema::dropIfExists('typeplants');
     }
 };

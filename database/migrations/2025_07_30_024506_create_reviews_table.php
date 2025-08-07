@@ -16,18 +16,20 @@ return new class extends Migration
             $table->unsignedBigInteger('post_id');
             $table->unsignedBigInteger('user_id');
             $table->integer('rvw_nilai');
+
             $table->unsignedBigInteger('rvw_create_by');
             $table->unsignedBigInteger('rvw_update_by')->nullable();
             $table->unsignedBigInteger('rvw_deleted_by')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
             $table->string('rvw_sys_note', 255)->nullable();
 
             $table->foreign('post_id')->references('pst_id')->on('posts');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('rvw_create_by')->references('id')->on('users');
-            $table->foreign('rvw_update_by')->references('id')->on('users');
-            $table->foreign('rvw_deleted_by')->references('id')->on('users');
+            $table->foreign('user_id')->references('usr_id')->on('users');
+            $table->foreign('rvw_create_by')->references('usr_id')->on('users');
+            $table->foreign('rvw_update_by')->references('usr_id')->on('users');
+            $table->foreign('rvw_deleted_by')->references('usr_id')->on('users');
         });
     }
 
