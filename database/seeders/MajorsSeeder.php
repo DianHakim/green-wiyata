@@ -13,9 +13,6 @@ class MajorsSeeder extends Seeder
      */
     public function run(): void
     {
-        Majors::factory()->create([
-            'mjr_name' => 'Teknik Informatika',
-            'mjr_create_by' => 1,
-        ]);
+
     }
 }

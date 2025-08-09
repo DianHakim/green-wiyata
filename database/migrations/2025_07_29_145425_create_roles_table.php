@@ -15,18 +15,19 @@ return new class extends Migration
             $table->bigIncrements('rl_id');
             $table->string('rl_name');
             $table->string('rl_description')->nullable();
-
-            $table->unsignedBigInteger('rl_created_at')->nullable();
-            $table->unsignedBigInteger('rl_updated_at')->nullable();
-            $table->unsignedBigInteger('rl_deleted_at')->nullable();
-
             $table->unsignedBigInteger('rl_created_by');
             $table->unsignedBigInteger('rl_updated_by')->nullable();
             $table->unsignedBigInteger('rl_deleted_by')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
             $table->string('rl_sys_note')->nullable();
 
             $table->foreign('rl_updated_by')->references('usr_id')->on('users')->onDelete('cascade');
             $table->foreign('rl_deleted_by')->references('usr_id')->on('users')->onDelete('cascade');
+
+            $table->renameColumn('updated_at', 'rl_updated_at');
+            $table->renameColumn('created_at', 'rl_created_at');
+            $table->renameColumn('deleted_at', 'rl_deleted_at');
         });
     }
 

@@ -30,9 +30,9 @@ return new class extends Migration
             $table->foreign('usr_updated_by')->references('usr_id')->on('users')->onDelete('cascade');
             $table->foreign('usr_deleted_by')->references('usr_id')->on('users')->onDelete('cascade');
 
-            // $table->renameColumn('updated_at', 'usr_updated_at');
-            // $table->renameColumn('created_at', 'usr_created_at');
-            // $table->renameColumn('deleted_at', 'usr_deleted_at');
+            $table->renameColumn('updated_at', 'usr_updated_at');
+            $table->renameColumn('created_at', 'usr_created_at');
+            $table->renameColumn('deleted_at', 'usr_deleted_at');
         });
 
 

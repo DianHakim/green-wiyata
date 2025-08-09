@@ -16,10 +16,8 @@ return new class extends Migration
             $table->integer('cls_level');
             $table->unsignedBigInteger('mjr_id');
             $table->bigInteger('cls_number');
-
-            $table->unsignedBigInteger('cls_created_at')->nullable();
-            $table->unsignedBigInteger('cls_updated_at')->nullable();
-            $table->unsignedBigInteger('cls_deleted_at')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
 
             $table->unsignedBigInteger('cls_created_by');
             $table->unsignedBigInteger('cls_updated_by')->nullable();
@@ -30,6 +28,10 @@ return new class extends Migration
             $table->foreign('cls_created_by')->references('usr_id')->on('users');
             $table->foreign('cls_updated_by')->references('usr_id')->on('users');
             $table->foreign('cls_deleted_by')->references('usr_id')->on('users');
+
+            $table->renameColumn('updated_at', 'cls_updated_at');
+            $table->renameColumn('created_at', 'cls_created_at');
+            $table->renameColumn('deleted_at', 'cls_deleted_at');
         });
     }
 

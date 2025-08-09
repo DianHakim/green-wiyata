@@ -13,9 +13,6 @@ class RepotrsSeeder extends Seeder
      */
     public function run(): void
     {
-        Repotrs::factory()->create([
-            'post_id' => 1,
-            'rps_create_by' => 1,
-        ]);
+
     }
 }

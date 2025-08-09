@@ -19,8 +19,8 @@ return new class extends Migration
             $table->text('pts_description')->nullable();
 
             $table->unsignedBigInteger('location_id');
-            $table->unsignedBigInteger('pts_create_by');
-            $table->unsignedBigInteger('pts_update_by')->nullable();
+            $table->unsignedBigInteger('pts_created_by');
+            $table->unsignedBigInteger('pts_updated_by')->nullable();
             $table->unsignedBigInteger('pts_deleted_by')->nullable();
 
             $table->timestamps();
@@ -28,9 +28,13 @@ return new class extends Migration
             $table->string('pts_sys_note', 255)->nullable();
 
             $table->foreign('location_id')->references('lcn_id')->on('locations');
-            $table->foreign('pts_create_by')->references('usr_id')->on('users');
-            $table->foreign('pts_update_by')->references('usr_id')->on('users');
+            $table->foreign('pts_created_by')->references('usr_id')->on('users');
+            $table->foreign('pts_updated_by')->references('usr_id')->on('users');
             $table->foreign('pts_deleted_by')->references('usr_id')->on('users');
+
+            $table->renameColumn('updated_at', 'pts_updated_at');
+            $table->renameColumn('created_at', 'pts_created_at');
+            $table->renameColumn('deleted_at', 'pts_deleted_at');
         });
     }
 

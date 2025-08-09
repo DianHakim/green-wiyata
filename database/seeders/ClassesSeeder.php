@@ -13,11 +13,6 @@ class ClassesSeeder extends Seeder
      */
     public function run(): void
     {
-        Classes::factory()->create([
-            'cls_level' => 1,
-            'mjr_id' => 1,
-            'cls_number' => 1,
-            'cls_create_by' => 1,
-        ]);
+
     }
 }

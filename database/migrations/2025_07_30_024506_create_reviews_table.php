@@ -17,8 +17,8 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->integer('rvw_nilai');
 
-            $table->unsignedBigInteger('rvw_create_by');
-            $table->unsignedBigInteger('rvw_update_by')->nullable();
+            $table->unsignedBigInteger('rvw_created_by');
+            $table->unsignedBigInteger('rvw_updated_by')->nullable();
             $table->unsignedBigInteger('rvw_deleted_by')->nullable();
 
             $table->timestamps();
@@ -27,9 +27,13 @@ return new class extends Migration
 
             $table->foreign('post_id')->references('pst_id')->on('posts');
             $table->foreign('user_id')->references('usr_id')->on('users');
-            $table->foreign('rvw_create_by')->references('usr_id')->on('users');
-            $table->foreign('rvw_update_by')->references('usr_id')->on('users');
+            $table->foreign('rvw_created_by')->references('usr_id')->on('users');
+            $table->foreign('rvw_updated_by')->references('usr_id')->on('users');
             $table->foreign('rvw_deleted_by')->references('usr_id')->on('users');
+
+            $table->renameColumn('updated_at', 'rvw_updated_at');
+            $table->renameColumn('created_at', 'rvw_created_at');
+            $table->renameColumn('deleted_at', 'rvw_deleted_at');
         });
     }
 

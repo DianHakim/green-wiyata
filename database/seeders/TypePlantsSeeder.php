@@ -13,9 +13,6 @@ class TypeplantsSeeder extends Seeder
      */
     public function run(): void
     {
-        Typeplants::factory()->create([
-            'tps_type' => 'Jenis A',
-            'tps_create_by' => 1,
-        ]);
+
     }
 }

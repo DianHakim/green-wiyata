@@ -14,10 +14,6 @@ class RolesSeeder extends Seeder
      */
     public function run(): void
     {
-        Roles::factory()->create([
-            'rl_name' => 'Admin',
-            'rl_description' => 'Administrator role',
-            'rl_create_by' => 1,
-        ]);
+        
     }
 }

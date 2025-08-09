@@ -13,11 +13,6 @@ class ReviewSeeder extends Seeder
      */
     public function run(): void
     {
-        Review::factory()->create([
-            'post_id' => 1,
-            'user_id' => 1,
-            'rvw_nilai' => 5,
-            'rvw_create_by' => 1,
-        ]);
+
     }
 }
