@@ -2,21 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Classes;
-use App\Models\Location;
-use App\Models\Majors;
-use App\Models\Plants;
-use App\Models\Post;
-use App\Models\Repotrs;
-use App\Models\Review;
-use App\Models\Roles;
-use App\Models\Trash_Bag;
-use App\Models\TrashCan;
-use App\Models\Type_Plants;
-use App\Models\TypePlants;
-use App\Models\User;
-use App\Models\Users;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
