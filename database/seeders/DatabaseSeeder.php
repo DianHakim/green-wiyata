@@ -100,6 +100,7 @@ class DatabaseSeeder extends Seeder
             'pts_stok' => '15',
             'pts_description' => 'Deskripsi tanaman A',
             'location_id' => 1,
+            'tps_id' => 1,
             'pts_created_by' => 1,
             'pts_created_at' => now(),
             'pts_updated_at' => now(),

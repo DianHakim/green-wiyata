@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('pts_description')->nullable();
             $table->string('pts_stok');
             $table->unsignedBigInteger('location_id');
+            $table->unsignedBigInteger('tps_id');
             $table->unsignedBigInteger('pts_created_by');
             $table->unsignedBigInteger('pts_updated_by')->nullable();
             $table->unsignedBigInteger('pts_deleted_by')->nullable();
