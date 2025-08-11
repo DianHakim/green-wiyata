@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->bigIncrements('rvw_id');
             $table->unsignedBigInteger('post_id');
-            $table->unsignedBigInteger('user_id');
+            $table->date('rvw_date');
             $table->integer('rvw_nilai');
             $table->unsignedBigInteger('rvw_created_by');
             $table->unsignedBigInteger('rvw_updated_by')->nullable();
@@ -24,7 +24,6 @@ return new class extends Migration
             $table->string('rvw_sys_note', 255)->nullable();
 
             $table->foreign('post_id')->references('pst_id')->on('posts');
-            $table->foreign('user_id')->references('usr_id')->on('users');
             $table->foreign('rvw_created_by')->references('usr_id')->on('users');
             $table->foreign('rvw_updated_by')->references('usr_id')->on('users');
             $table->foreign('rvw_deleted_by')->references('usr_id')->on('users');

@@ -86,7 +86,7 @@ class DatabaseSeeder extends Seeder
 
         DB::table('reviews')->insert([
             'post_id' => 1,
-            'user_id' => 1,
+            'rvw_date' => '2025-08-01',
             'rvw_nilai' => 5,
             'rvw_created_by' => 1,
             'rvw_created_at' => now(),
