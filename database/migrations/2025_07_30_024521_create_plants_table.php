@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('pts_date');
             $table->string('pts_img_path', 255)->nullable();
             $table->text('pts_description')->nullable();
-
+            $table->string('pts_stok');
             $table->unsignedBigInteger('location_id');
             $table->unsignedBigInteger('pts_created_by');
             $table->unsignedBigInteger('pts_updated_by')->nullable();
