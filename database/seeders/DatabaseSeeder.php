@@ -121,15 +121,15 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('trashcan')->insert([
-            'tbg_name' => 'Trash Bag A',
-            'tbg_level' => 1,
-            'tbg_code' => 'TBG-001',
-            'tbg_img_path' => 'images/trashbags/tbg_a.jpg',
-            'tbg_weight_kg' => '10',
+            'tcn_name' => 'Trash Bag A',
+            'tcn_level' => 1,
+            'tcn_code' => 'TCN-001',
+            'tcn_img_path' => 'images/trashbags/tcn_a.jpg',
+            'tcn_weight_kg' => '10',
             'locations_id' => 1,
-            'tbg_created_by' => 1,
-            'tbg_created_at' => now(),
-            'tbg_updated_at' => now(),
+            'tcn_created_by' => 1,
+            'tcn_created_at' => now(),
+            'tcn_updated_at' => now(),
         ]);
     }
 }
