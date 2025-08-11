@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->string('tps_sys_note', 255)->nullable();
-
+            
             $table->foreign('tps_created_by')->references('usr_id')->on('users');
             $table->foreign('tps_updated_by')->references('usr_id')->on('users');
             $table->foreign('tps_deleted_by')->references('usr_id')->on('users');

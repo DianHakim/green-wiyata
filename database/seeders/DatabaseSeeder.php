@@ -97,7 +97,7 @@ class DatabaseSeeder extends Seeder
             'pts_name' => 'Tanaman A',
             'pts_date' => '2025-08-03',
             'pts_img_path' => 'images/plants/plant_a.jpg',
-            'pts_stok' => '10',
+            'pts_stok' => '15',
             'pts_description' => 'Deskripsi tanaman A',
             'location_id' => 1,
             'pts_created_by' => 1,

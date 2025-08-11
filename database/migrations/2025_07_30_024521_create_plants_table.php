@@ -22,7 +22,6 @@ return new class extends Migration
             $table->unsignedBigInteger('pts_created_by');
             $table->unsignedBigInteger('pts_updated_by')->nullable();
             $table->unsignedBigInteger('pts_deleted_by')->nullable();
-
             $table->timestamps();
             $table->softDeletes();
             $table->string('pts_sys_note', 255)->nullable();

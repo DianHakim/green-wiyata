@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('majors', function (Blueprint $table) {
             $table->bigIncrements('mjr_id');
             $table->string('mjr_name');
-
             $table->unsignedBigInteger('mjr_created_by')->nullable();
             $table->unsignedBigInteger('mjr_deleted_by')->nullable();
             $table->unsignedBigInteger('mjr_updated_by')->nullable();

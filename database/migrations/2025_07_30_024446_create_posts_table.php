@@ -19,11 +19,9 @@ return new class extends Migration
             $table->text('pst_description')->nullable();
             $table->timestamps();
             $table->softDeletes();
-
             $table->unsignedBigInteger('pst_created_by');
             $table->unsignedBigInteger('pst_updated_by')->nullable();
             $table->unsignedBigInteger('pst_deleted_by')->nullable();
-
             $table->string('pst_sys_note', 255)->nullable();
 
             $table->foreign('pst_created_by')->references('usr_id')->on('users');

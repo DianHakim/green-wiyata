@@ -16,11 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('post_id');
             $table->unsignedBigInteger('user_id');
             $table->integer('rvw_nilai');
-
             $table->unsignedBigInteger('rvw_created_by');
             $table->unsignedBigInteger('rvw_updated_by')->nullable();
             $table->unsignedBigInteger('rvw_deleted_by')->nullable();
-
             $table->timestamps();
             $table->softDeletes();
             $table->string('rvw_sys_note', 255)->nullable();

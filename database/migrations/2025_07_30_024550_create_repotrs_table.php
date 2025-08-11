@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->string('rps_sys_note', 255)->nullable();
-
+            
             $table->foreign('post_id')->references('pst_id')->on('posts');
             $table->foreign('rps_created_by')->references('usr_id')->on('users');
             $table->foreign('rps_updated_by')->references('usr_id')->on('users');

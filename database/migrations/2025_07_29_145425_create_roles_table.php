@@ -21,7 +21,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->string('rl_sys_note')->nullable();
-
+            
             $table->foreign('rl_updated_by')->references('usr_id')->on('users')->onDelete('cascade');
             $table->foreign('rl_deleted_by')->references('usr_id')->on('users')->onDelete('cascade');
 

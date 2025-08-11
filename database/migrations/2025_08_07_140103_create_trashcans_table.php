@@ -25,7 +25,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->string('tbg_sys_note', 255)->nullable();
-
+            
             $table->foreign('locations_id')->references('lcn_id')->on('locations');
             $table->foreign('tbg_created_by')->references('usr_id')->on('users');
             $table->foreign('tbg_updated_by')->references('usr_id')->on('users');

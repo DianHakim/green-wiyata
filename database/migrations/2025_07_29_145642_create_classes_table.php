@@ -18,7 +18,6 @@ return new class extends Migration
             $table->bigInteger('cls_number');
             $table->timestamps();
             $table->softDeletes();
-
             $table->unsignedBigInteger('cls_created_by');
             $table->unsignedBigInteger('cls_updated_by')->nullable();
             $table->unsignedBigInteger('cls_deleted_by')->nullable();

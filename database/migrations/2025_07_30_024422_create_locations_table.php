@@ -18,11 +18,9 @@ return new class extends Migration
             $table->string('lcn_img_path')->nullable();
             $table->timestamps();
             $table->softDeletes();
-
             $table->unsignedBigInteger('lcn_created_by');
             $table->unsignedBigInteger('lcn_updated_by')->nullable();
             $table->unsignedBigInteger('lcn_deleted_by')->nullable();
-
             $table->string('lcn_sys_note')->nullable();
 
             $table->foreign('lcn_created_by')->references('usr_id')->on('users');
