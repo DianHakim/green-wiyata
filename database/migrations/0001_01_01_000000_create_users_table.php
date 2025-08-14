@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->unsignedBigInteger('usr_role_id');
+            $table->unsignedBigInteger('usr_role_id')->unsigned()->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->unsignedBigInteger('usr_created_by')->unsigned()->nullable();
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->unsignedBigInteger('usr_updated_by')->unsigned()->nullable();
             $table->softDeletes();
             $table->string('usr_sys_note')->nullable();
-
+            
             $table->foreign('usr_created_by')->references('usr_id')->on('users')->onDelete('cascade');
             $table->foreign('usr_updated_by')->references('usr_id')->on('users')->onDelete('cascade');
             $table->foreign('usr_deleted_by')->references('usr_id')->on('users')->onDelete('cascade');

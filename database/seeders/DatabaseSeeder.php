@@ -119,17 +119,5 @@ class DatabaseSeeder extends Seeder
             'tps_created_at' => now(),
             'tps_updated_at' => now(),
         ]);
-
-        DB::table('trashcan')->insert([
-            'tcn_name' => 'Trash Bag A',
-            'tcn_level' => 1,
-            'tcn_code' => 'TCN-001',
-            'tcn_img_path' => 'images/trashbags/tcn_a.jpg',
-            'tcn_weight_kg' => '10',
-            'locations_id' => 1,
-            'tcn_created_by' => 1,
-            'tcn_created_at' => now(),
-            'tcn_updated_at' => now(),
-        ]);
     }
 }
