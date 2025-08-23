@@ -2,11 +2,45 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-    /** @use HasFactory<\Database\Factories\PostFactory> */
-    use HasFactory;
+    use SoftDeletes;
+
+    protected $table = 'posts';
+    protected $primaryKey = 'pst_id';
+    public $timestamps = false;
+
+    // mapping kolom custom soft delete
+    const DELETED_AT = 'pst_deleted_at';
+    const CREATED_AT = 'pst_created_at';
+    const UPDATED_AT = 'pst_updated_at';
+
+    protected $fillable = [
+        'pst_content',
+        'pst_date',
+        'pst_img_path',
+        'pst_description',
+        'pst_created_by',
+        'pst_updated_by',
+        'pst_deleted_by',
+        'pst_sys_note',
+        'location_lat',
+        'location_lng'
+    ];
+
+    protected $dates = [
+        'pst_created_at',
+        'pst_updated_at',
+        'pst_deleted_at',
+        'pst_date',
+    ];
+
+    // relasi ke user
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'pst_created_by', 'usr_id');
+    }
 }

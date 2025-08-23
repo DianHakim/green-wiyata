@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
@@ -17,24 +14,27 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->unsignedBigInteger('usr_role_id')->unsigned()->nullable();
+            $table->unsignedBigInteger('usr_role_id')->nullable();
             $table->rememberToken();
-            $table->timestamps();
-            $table->unsignedBigInteger('usr_created_by')->unsigned()->nullable();
-            $table->unsignedBigInteger('usr_deleted_by')->unsigned()->nullable();
-            $table->unsignedBigInteger('usr_updated_by')->unsigned()->nullable();
-            $table->softDeletes();
+
+            $table->unsignedBigInteger('usr_created_by')->nullable();
+            $table->unsignedBigInteger('usr_deleted_by')->nullable();
+            $table->unsignedBigInteger('usr_updated_by')->nullable();
+
+            // Buat kolom timestamp custom
+            $table->timestamp('usr_created_at')->nullable();
+            $table->timestamp('usr_updated_at')->nullable();
+
+            // SoftDeletes dengan nama kolom custom usr_deleted_at
+            $table->softDeletes('usr_deleted_at');
+
             $table->string('usr_sys_note')->nullable();
-            
+
+            // Foreign key constraints
             $table->foreign('usr_created_by')->references('usr_id')->on('users')->onDelete('cascade');
             $table->foreign('usr_updated_by')->references('usr_id')->on('users')->onDelete('cascade');
             $table->foreign('usr_deleted_by')->references('usr_id')->on('users')->onDelete('cascade');
-
-            $table->renameColumn('updated_at', 'usr_updated_at');
-            $table->renameColumn('created_at', 'usr_created_at');
-            $table->renameColumn('deleted_at', 'usr_deleted_at');
         });
-
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
@@ -52,9 +52,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('users');
@@ -62,3 +59,4 @@ return new class extends Migration
         Schema::dropIfExists('sessions');
     }
 };
+

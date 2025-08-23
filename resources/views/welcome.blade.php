@@ -63,7 +63,7 @@
                             </span>
                             <span>
                                 Read the
-                                <a href="/home" target="_blank" class="inline-flex items-center space-x-1 font-medium underline underline-offset-4 text-[#f53003] dark:text-[#FF4433] ml-1">
+                                <a href="/dashboard" target="_blank" class="inline-flex items-center space-x-1 font-medium underline underline-offset-4 text-[#f53003] dark:text-[#FF4433] ml-1">
                                     <span>Documentation</span>
                                     <svg
                                         width="10"
@@ -90,8 +90,8 @@
                             </span>
                             <span>
                                 Watch video tutorials at
-                                <a href="plants" target="_blank" class="inline-flex items-center space-x-1 font-medium underline underline-offset-4 text-[#f53003] dark:text-[#FF4433] ml-1">
-                                    <span>Laracasts</span>
+                                <a href="login" target="_blank" class="inline-flex items-center space-x-1 font-medium underline underline-offset-4 text-[#f53003] dark:text-[#FF4433] ml-1">
+                                    <span>Login</span>  
                                     <svg
                                         width="10"
                                         height="11"

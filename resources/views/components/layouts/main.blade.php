@@ -14,11 +14,11 @@
 <body class="sb-nav-fixed">
 
     {{-- Navbar --}}
-    <x-navbar />
+    <x-layouts.navbar />
 
     <div id="layoutSidenav">
         {{-- Sidebar --}}
-        <x-sidebars />
+        <x-layouts.sidebars />
 
         {{-- Main Content --}}
         <div id="layoutSidenav_content">
