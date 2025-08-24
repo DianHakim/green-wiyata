@@ -18,8 +18,6 @@ use App\Http\Controllers\Web\TypePlantController;
 // Landing page
 Route::get('/', [HomeController::class, 'landing'])->name('landing');
 
-// ================== AUTH ==================
-// Hanya untuk user guest (belum login)
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
@@ -27,14 +25,9 @@ Route::middleware('guest')->group(function () {
     Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
     Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-
-    Route::get('/register', [AuthController::class, 'register'])->name('register');
-    Route::post('/register', [AuthController::class, 'store'])->name('register.store');
 });
 
-// Hanya untuk user yang sudah login
 Route::middleware('auth')->group(function () {
-    // Dashboard
     Route::get('/dashboard', function () {
         return view('home.home');
     });

@@ -41,20 +41,6 @@
           </div>
         @endif
 
-        <form method="POST" action="{{ route('login') }}">
-          @csrf
-
-        {{-- tampilkan error kalau ada --}}
-        @if ($errors->any())
-          <div class="alert alert-danger">
-            <ul class="mb-0">
-              @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-              @endforeach
-            </ul>
-          </div>
-        @endif
-
         {{-- form login --}}
         <form method="POST" action="{{ route('login') }}">
           @csrf
@@ -68,7 +54,6 @@
             <input type="checkbox" class="form-check-input" id="remember" name="remember">
             <input type="checkbox" class="form-check-input" name="remember" id="remember">
             <label class="form-check-label" for="remember">Remember Me</label>
-            <span class="ms-2">Don’t Have an account? <a href="{{ route('register') }}" class="text-info">Register</a></span>
           </div>
           <div class="d-grid">
             <button type="submit" class="btn btn-success">Masuk</button>

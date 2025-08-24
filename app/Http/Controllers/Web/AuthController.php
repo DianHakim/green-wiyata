@@ -51,7 +51,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'usr_role_id' => 2, // default role untuk user biasa
+            'usr_role_id' => 2,
             'usr_created_by' => 'system',
             'usr_updated_by' => 'system',
 ]);
@@ -73,3 +73,18 @@ class AuthController extends Controller
         return redirect()->route('login')->with('success', 'You have been logged out.');
     }
 }
+
+$validated = $request->validate([
+    'name' => 'required|string|max:255',
+    'email' => [
+        'required',
+        'email',
+        'unique:users,email',
+        function ($attribute, $value, $fail) {
+            if (!str_ends_with($value, '@greenwiyata.com')) {
+                $fail('Email harus menggunakan domain @greenwiyata.com');
+            }
+        },
+    ],
+    'password' => 'required|min:6|confirmed',
+]);
