@@ -1,56 +1,93 @@
 <?php
+
 namespace App\Http\Controllers\Web;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Location;
+use App\Models\Plant;
+use App\Models\TypePlant;
+use Illuminate\Http\Request;
 
 class PlantController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        return view('plants.index');
+        $plants = Plant::with(['location', 'typePlant'])->get();
+        return view('plants.index', compact('plants'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view('plants.create');
+        $locations = Location::all();
+        $typeplants = TypePlant::all();
+        return view('plants.create', compact('locations', 'typeplants'));
     }
 
-    /**
-     * Display the specified resource.
-     */
-        public function show($id)
+    public function store(Request $request)
     {
-        return view('posts.show'); // bisa passing $post
+        $validated = $request->validate([
+            'pts_name' => 'required|string|max:255',
+            'location_id' => 'required|integer', // harus sama dengan name di blade
+            'tps_id' => 'required|integer',
+            'pts_stok' => 'required|integer',
+            'pts_date' => 'required|date',
+            'pts_description' => 'nullable|string',
+            'pts_img_path' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        // Handle upload gambar
+        if ($request->hasFile('pts_img_path')) {
+            $validated['pts_img_path'] = $request->file('pts_img_path')->store('plants', 'public');
+        }
+
+        Plant::create($validated);
+
+        return redirect()->route('plants.index')->with('success', 'Plant berhasil ditambahkan');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function show($id)
     {
-        return view('plants.edit');
+        $plant = Plant::with(['location', 'typePlant'])->findOrFail($id);
+        return view('plants.show', compact('plant'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function edit($id)
     {
-        return redirect()->route('plants.index')->with('success','Post updated');
+        $plant = Plant::findOrFail($id);
+        $locations = Location::all();
+        $typeplants = TypePlant::all();
+        return view('plants.edit', compact('plant', 'locations', 'typeplants'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function update(Request $request, $id)
     {
-        return redirect()->route('plants.index')->with('success','Post deleted');
+        $plant = Plant::findOrFail($id);
+
+        $validated = $request->validate([
+            'pts_name' => 'required|string|max:255',
+            'location_id' => 'required|integer',
+            'tps_id' => 'required|integer',
+            'pts_stok' => 'required|integer',
+            'pts_date' => 'required|date',
+            'pts_description' => 'nullable|string',
+            'pts_img_path' => 'nullable|image|mimes:jpg,jpeg,png|max:5120', // 5120 KB = 5 MB
+        ]);
+
+        // Handle update gambar
+        if ($request->hasFile('pts_img_path')) {
+            $validated['pts_img_path'] = $request->file('pts_img_path')->store('plants', 'public');
+        }
+
+        $plant->update($validated);
+
+        return redirect()->route('plants.index')->with('success', 'Plant updated successfully');
+    }
+
+    public function destroy($id)
+    {
+        $plant = Plant::findOrFail($id);
+        $plant->delete();
+
+        return redirect()->route('plants.index')->with('success', 'Plant deleted successfully');
     }
 }

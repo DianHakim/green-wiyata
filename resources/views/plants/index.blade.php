@@ -1,70 +1,68 @@
-<x-layouts.main title="Dashboard">
+{{-- resources/views/plants/index.blade.php --}}
+<x-layouts.main title="Dashboard Plants">
     <h1 class="mt-4">Dashboard Plants</h1>
+
     <div class="app-content">
-          <!--begin::Container-->
-          <div class="container-fluid">
-            <!--begin::Row-->
-            <div class="row">
-              <div class="col-md-6">
-                <div class="card mb-4">
-                  <div class="card-header"><h3 class="card-title">Bordered Table</h3></div>
-                  <!-- /.card-header -->
-                  <div class="card-body">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th style="width: 10px">#</th>
-                          <th>Task</th>
-                          <th>Progress</th>
-                          <th style="width: 40px">Label</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr class="align-middle">
-                          <td>1.</td>
-                          <td>Update software</td>
-                          <td>
-                            <div class="progress progress-xs">
-                              <div
-                                class="progress-bar progress-bar-danger"
-                                style="width: 55%"
-                              ></div>
-                            </div>
-                          </td>
-                          <td><span class="badge text-bg-danger">55%</span></td>
-                        </tr>
-                        <tr class="align-middle">
-                          <td>2.</td>
-                          <td>Clean database</td>
-                          <td>
-                            <div class="progress progress-xs">
-                              <div class="progress-bar text-bg-warning" style="width: 70%"></div>
-                            </div>
-                          </td>
-                          <td><span class="badge text-bg-warning">70%</span></td>
-                        </tr>
-                        <tr class="align-middle">
-                          <td>3.</td>
-                          <td>Cron job running</td>
-                          <td>
-                            <div class="progress progress-xs progress-striped active">
-                              <div class="progress-bar text-bg-primary" style="width: 30%"></div>
-                            </div>
-                          </td>
-                          <td><span class="badge text-bg-primary">30%</span></td>
-                        </tr>
-                        <tr class="align-middle">
-                          <td>4.</td>
-                          <td>Fix and squish bugs</td>
-                          <td>
-                            <div class="progress progress-xs progress-striped active">
-                              <div class="progress-bar text-bg-success" style="width: 90%"></div>
-                            </div>
-                          </td>
-                          <td><span class="badge text-bg-success">90%</span></td>
-                        </tr>
-                      </tbody>
+        <div class="container-fluid">
+            <div class="card mb-4 shadow">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title m-0">Daftar Tanaman</h3>
+                    <a href="{{ route('plants.create') }}" class="btn btn-primary btn-sm">
+                        + Tambah Plant
+                    </a>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered align-middle text-center">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 50px">#</th>
+                                <th>Nama</th>
+                                <th>Lokasi</th>
+                                <th>Tipe</th>
+                                <th>Stok</th>
+                                <th style="width: 120px">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($plants as $index => $plant)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $plant->pts_name }}</td>
+                                    <td>{{ $plant->location->lcn_name ?? '-' }}</td>
+                                    <td>{{ $plant->typeplant->tps_type ?? '-' }}</td>
+                                    <td>{{ $plant->pts_stok }}</td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                                Opsi
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('plants.show', $plant->pts_id) }}">Detail</a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('plants.edit', $plant->pts_id) }}">Edit</a>
+                                                </li>
+                                                <li>
+                                                    <form action="{{ route('plants.destroy', $plant->pts_id) }}" method="POST" onsubmit="return confirm('Yakin mau hapus plant ini?')">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="dropdown-item text-danger">Hapus</button>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="6" class="text-center">Belum ada data plant</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
                     </table>
-                  </div>
-                  <!-- /.card-body -->
+                </div>
+            </div>
+        </div>
+    </div>
 </x-layouts.main>

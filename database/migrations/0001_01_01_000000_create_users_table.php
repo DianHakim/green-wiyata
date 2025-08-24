@@ -21,16 +21,13 @@ return new class extends Migration
             $table->unsignedBigInteger('usr_deleted_by')->nullable();
             $table->unsignedBigInteger('usr_updated_by')->nullable();
 
-            // Buat kolom timestamp custom
             $table->timestamp('usr_created_at')->nullable();
             $table->timestamp('usr_updated_at')->nullable();
 
-            // SoftDeletes dengan nama kolom custom usr_deleted_at
             $table->softDeletes('usr_deleted_at');
 
             $table->string('usr_sys_note')->nullable();
 
-            // Foreign key constraints
             $table->foreign('usr_created_by')->references('usr_id')->on('users')->onDelete('cascade');
             $table->foreign('usr_updated_by')->references('usr_id')->on('users')->onDelete('cascade');
             $table->foreign('usr_deleted_by')->references('usr_id')->on('users')->onDelete('cascade');

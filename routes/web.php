@@ -54,14 +54,15 @@ Route::middleware('auth')->group(function () {
 
     // Plants
     Route::prefix('plants')->group(function () {
-        Route::get('/', [PlantController::class, 'index'])->name('plants.index');
-        Route::get('/add', [PlantController::class, 'create'])->name('plants.add');
-        Route::post('/store', [PlantController::class, 'store'])->name('plants.store');
-        Route::get('/{id}', [PlantController::class, 'show'])->name('plants.show');
-        Route::get('/{id}/edit', [PlantController::class, 'edit'])->name('plants.edit');
-        Route::put('/{id}', [PlantController::class, 'update'])->name('plants.update');
-        Route::delete('/{id}', [PlantController::class, 'destroy'])->name('plants.delete');
-    });
+    Route::get('/', [PlantController::class, 'index'])->name('plants.index');
+    Route::get('/add', [PlantController::class, 'create'])->name('plants.create');
+    Route::post('/store', [PlantController::class, 'store'])->name('plants.store');
+    Route::get('/{id}', [PlantController::class, 'show'])->name('plants.show');
+    Route::get('/{id}/edit', [PlantController::class, 'edit'])->name('plants.edit');
+    Route::put('/{id}', [PlantController::class, 'update'])->name('plants.update');
+    Route::delete('/{id}', [PlantController::class, 'destroy'])->name('plants.destroy');
+});
+
 
     // Posts
    Route::prefix('posts')->name('posts.')->group(function () {
