@@ -7,6 +7,7 @@ use App\Models\Location;
 use App\Models\Plant;
 use App\Models\TypePlant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PlantController extends Controller
 {
@@ -28,7 +29,7 @@ class PlantController extends Controller
     {
         $validated = $request->validate([
             'pts_name' => 'required|string|max:255',
-            'location_id' => 'required|integer', // harus sama dengan name di blade
+            'location_id' => 'required|integer',
             'tps_id' => 'required|integer',
             'pts_stok' => 'required|integer',
             'pts_date' => 'required|date',
@@ -40,6 +41,10 @@ class PlantController extends Controller
         if ($request->hasFile('pts_img_path')) {
             $validated['pts_img_path'] = $request->file('pts_img_path')->store('plants', 'public');
         }
+
+        // Tambahkan kolom created_by & updated_by
+        $validated['pts_created_by'] = Auth::id() ?? 'system';
+        $validated['pts_updated_by'] = Auth::id() ?? 'system';
 
         Plant::create($validated);
 
@@ -78,6 +83,9 @@ class PlantController extends Controller
         if ($request->hasFile('pts_img_path')) {
             $validated['pts_img_path'] = $request->file('pts_img_path')->store('plants', 'public');
         }
+
+        // Tambahkan updated_by setiap kali update
+        $validated['pts_updated_by'] = Auth::id() ?? 'system';
 
         $plant->update($validated);
 

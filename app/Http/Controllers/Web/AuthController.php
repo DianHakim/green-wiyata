@@ -43,8 +43,17 @@ class AuthController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:3|confirmed',
+            'email' => [
+                'required',
+                'email',
+                'unique:users,email',
+                function ($attribute, $value, $fail) {
+                    if (!str_ends_with($value, '@greenwiyata.com')) {
+                        $fail('Email harus menggunakan domain @greenwiyata.com');
+                    }
+                },
+            ],
+            'password' => 'required|string|min:6|confirmed',
         ]);
 
         $user = User::create([
@@ -54,8 +63,7 @@ class AuthController extends Controller
             'usr_role_id' => 2,
             'usr_created_by' => 'system',
             'usr_updated_by' => 'system',
-]);
-
+        ]);
 
         Auth::login($user);
 
@@ -73,18 +81,3 @@ class AuthController extends Controller
         return redirect()->route('login')->with('success', 'You have been logged out.');
     }
 }
-
-$validated = $request->validate([
-    'name' => 'required|string|max:255',
-    'email' => [
-        'required',
-        'email',
-        'unique:users,email',
-        function ($attribute, $value, $fail) {
-            if (!str_ends_with($value, '@greenwiyata.com')) {
-                $fail('Email harus menggunakan domain @greenwiyata.com');
-            }
-        },
-    ],
-    'password' => 'required|min:6|confirmed',
-]);
