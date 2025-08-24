@@ -1,6 +1,6 @@
 {{-- resources/views/plants/create.blade.php --}}
 <x-layouts.main title="Tambah Plant">
-    <h1 class="mt-4 text-center">Tambah Plant Baru</h1>
+    <h1 class="mt-4 text-center">Add New Plants</h1>
 
     <div class="app-content">
         <div class="container d-flex justify-content-center">
@@ -27,26 +27,26 @@
                             <table class="table table-borderless align-middle">
                                 <tbody>
                                     <tr>
-                                        <td style="width: 30%"><label for="pts_name" class="form-label">Nama Plant</label></td>
+                                        <td style="width: 30%"><label for="pts_name" class="form-label">Name Plant</label></td>
                                         <td><input type="text" name="pts_name" id="pts_name" class="form-control" value="{{ old('pts_name') }}" required></td>
                                     </tr>
                                     <tr>
-                                        <td><label for="pts_date" class="form-label">Tanggal</label></td>
+                                        <td><label for="pts_date" class="form-label">Date</label></td>
                                         <td><input type="date" name="pts_date" id="pts_date" class="form-control" value="{{ old('pts_date') }}" required></td>
                                     </tr>
                                     <tr>
-                                        <td><label for="pts_description" class="form-label">Deskripsi</label></td>
+                                        <td><label for="pts_description" class="form-label">Deskription</label></td>
                                         <td><textarea name="pts_description" id="pts_description" class="form-control" rows="3">{{ old('pts_description') }}</textarea></td>
                                     </tr>
                                     <tr>
-                                        <td><label for="pts_stok" class="form-label">Stok</label></td>
+                                        <td><label for="pts_stok" class="form-label">Stock</label></td>
                                         <td><input type="number" name="pts_stok" id="pts_stok" class="form-control" min="0" value="{{ old('pts_stok', 0) }}"></td>
                                     </tr>
                                     <tr>
-                                        <td><label for="location_id" class="form-label">Lokasi</label></td>
+                                        <td><label for="location_id" class="form-label">Location</label></td>
                                         <td>
                                             <select name="location_id" id="location_id" class="form-select" required>
-                                                <option value="">-- Pilih Lokasi --</option>
+                                                <option value="">-- Select Location --</option>
                                                 @foreach($locations as $location)
                                                     <option value="{{ $location->lcn_id }}" {{ old('location_id') == $location->lcn_id ? 'selected' : '' }}>
                                                         {{ $location->lcn_name }}
@@ -56,10 +56,10 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><label for="tps_id" class="form-label">Tipe Plant</label></td>
+                                        <td><label for="tps_id" class="form-label">Type Plant</label></td>
                                         <td>
                                             <select name="tps_id" id="tps_id" class="form-select" required>
-                                                <option value="">-- Pilih Tipe --</option>
+                                                <option value="">-- Select Type --</option>
                                                 @foreach($typeplants as $type)
                                                     <option value="{{ $type->tps_id }}" {{ old('tps_id') == $type->tps_id ? 'selected' : '' }}>
                                                         {{ $type->tps_type }}
@@ -69,15 +69,15 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><label for="pts_img_path" class="form-label">Gambar</label></td>
+                                        <td><label for="pts_img_path" class="form-label">Image</label></td>
                                         <td><input type="file" name="pts_img_path" id="pts_img_path" class="form-control"></td>
                                     </tr>
                                 </tbody>
                             </table>
 
                             <div class="d-flex justify-content-between mt-3">
-                                <a href="{{ route('plants.index') }}" class="btn btn-secondary">Kembali</a>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <a href="{{ route('plants.index') }}" class="btn btn-secondary">Back</a>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </form>
 

@@ -13,7 +13,8 @@ class PlantController extends Controller
     public function index()
     {
         $plants = Plant::with(['location', 'typePlant'])->get();
-        return view('plants.index', compact('plants'));
+        $typeplants = TypePlant::all();
+        return view('plants.index', compact('plants', 'typeplants'));
     }
 
     public function create()

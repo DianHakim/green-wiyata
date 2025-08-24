@@ -12,23 +12,25 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('typeplants', function (Blueprint $table) {
-            $table->bigIncrements('tps_id');
-            $table->string('tps_type');
-            $table->unsignedBigInteger('tps_created_by')->nullable();
-            $table->unsignedBigInteger('tps_updated_by')->nullable();
-            $table->unsignedBigInteger('tps_deleted_by')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-            $table->string('tps_sys_note', 255)->nullable();
-            
-            $table->foreign('tps_created_by')->references('usr_id')->on('users');
-            $table->foreign('tps_updated_by')->references('usr_id')->on('users');
-            $table->foreign('tps_deleted_by')->references('usr_id')->on('users');
+    $table->bigIncrements('tps_id');
+    $table->string('tps_type');
+    $table->unsignedBigInteger('tps_created_by')->nullable();
+    $table->unsignedBigInteger('tps_updated_by')->nullable();
+    $table->unsignedBigInteger('tps_deleted_by')->nullable();
 
-            $table->renameColumn('updated_at', 'tps_updated_at');
-            $table->renameColumn('created_at', 'tps_created_at');
-            $table->renameColumn('deleted_at', 'tps_deleted_at');
-        });
+    // Custom timestamps
+    $table->timestamp('tps_created_at')->nullable();
+    $table->timestamp('tps_updated_at')->nullable();
+    $table->timestamp('tps_deleted_at')->nullable();
+
+    $table->string('tps_sys_note', 255)->nullable();
+
+    // Foreign keys
+    $table->foreign('tps_created_by')->references('usr_id')->on('users');
+    $table->foreign('tps_updated_by')->references('usr_id')->on('users');
+    $table->foreign('tps_deleted_by')->references('usr_id')->on('users');
+});
+
     }
 
     /**

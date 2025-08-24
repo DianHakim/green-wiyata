@@ -1,13 +1,14 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TypePlantController as ControllersTypePlantController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\AuthController;
 use App\Http\Controllers\Web\HomeController;
 use App\Http\Controllers\Web\LocationPlantController;
 use App\Http\Controllers\Web\PlantController;
 use App\Http\Controllers\Web\PostController;
-
+use App\Http\Controllers\Web\TypePlantController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -61,8 +62,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/{id}/edit', [PlantController::class, 'edit'])->name('plants.edit');
     Route::put('/{id}', [PlantController::class, 'update'])->name('plants.update');
     Route::delete('/{id}', [PlantController::class, 'destroy'])->name('plants.destroy');
+    Route::post('/typeplants/store', [TypePlantController::class, 'store'])->name('typeplants.store');
+    Route::delete('/typeplants/{id}', [TypePlantController::class, 'destroy'])->name('typeplants.destroy');
 });
-
 
     // Posts
    Route::prefix('posts')->name('posts.')->group(function () {
