@@ -43,4 +43,14 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, 'pst_created_by', 'usr_id');
     }
+
+    public function plant()
+    {
+        return $this->belongsTo(Plant::class, 'plant_id', 'pts_id');
+    }
+
+    public function typeplant()
+    {
+        return $this->belongsTo(TypePlant::class, 'tps_id', 'tps_id');
+    }
 }

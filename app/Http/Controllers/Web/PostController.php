@@ -4,21 +4,46 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use App\Models\TypePlant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Plant as Plants;
 
 class PostController extends Controller
 {
-   public function index()
+    public function index(Request $request)
 {
-    $posts = Post::latest()->paginate(8); // <= 8 per halaman
-    return view('posts.index', compact('posts'));
+    $categories = TypePlant::all();
+
+    // Base query dengan relasi creator, plant, dan typeplant
+    $query = Post::with(['creator', 'plant.typePlant'])
+        ->orderByDesc('pst_created_at');
+
+    // Filter berdasarkan kategori (typeplant)
+    if ($request->has('category') && $request->category != '') {
+        $query->whereHas('plant', function ($q) use ($request) {
+            $q->where('tps_id', $request->category);
+        });
+    }
+
+    // Ambil data post
+    $posts = $query->paginate(8);
+
+    return view('posts.index', [
+        'posts' => $posts,
+        'categories' => $categories
+    ]);
 }
 
-    public function create()
+
+
+public function create()
     {
-        return view('posts.create');
+        $plants = Plants::all();
+        $categories = TypePlant::all();
+
+        return view('posts.create', compact('plants', 'categories'));
     }
 
     public function store(Request $request)
@@ -27,18 +52,19 @@ class PostController extends Controller
             'pst_content' => 'required',
             'pst_date' => 'required|date',
             'pst_img_path' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'tps_id' => 'required|exists:typeplants,tps_id'
         ]);
 
-        $imagePath = null;
-        if ($request->hasFile('pst_img_path')) {
-            $imagePath = $request->file('pst_img_path')->store('posts', 'public');
-        }
+        $imagePath = $request->hasFile('pst_img_path') 
+            ? $request->file('pst_img_path')->store('posts', 'public') 
+            : null;
 
         Post::create([
             'pst_content' => $request->pst_content,
             'pst_date' => $request->pst_date,
             'pst_img_path' => $imagePath,
             'pst_description' => $request->pst_description,
+            'tps_id' => $request->tps_id,
             'pst_created_at' => now(),
             'pst_created_by' => Auth::id(),
         ]);
@@ -46,16 +72,18 @@ class PostController extends Controller
         return redirect()->route('posts.index')->with('success', 'Post created successfully!');
     }
 
-    public function show($id)
+        public function show($id)
     {
-        $post = Post::with('creator')->findOrFail($id);
+        $post = Post::findOrFail($id);
         return view('posts.show', compact('post'));
     }
+
 
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-        return view('posts.edit', compact('post'));
+        $categories = TypePlant::all();
+        return view('posts.edit', compact('post', 'categories'));
     }
 
     public function update(Request $request, $id)
@@ -66,6 +94,7 @@ class PostController extends Controller
             'pst_content' => 'required',
             'pst_date' => 'required|date',
             'pst_img_path' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'tps_id' => 'required|exists:typeplants,tps_id'
         ]);
 
         $imagePath = $post->pst_img_path;
@@ -81,6 +110,7 @@ class PostController extends Controller
             'pst_date' => $request->pst_date,
             'pst_img_path' => $imagePath,
             'pst_description' => $request->pst_description,
+            'tps_id' => $request->tps_id,
             'pst_updated_at' => now(),
             'pst_updated_by' => Auth::id(),
         ]);
@@ -100,5 +130,3 @@ class PostController extends Controller
         return redirect()->route('posts.index')->with('success', 'Post deleted successfully!');
     }
 }
-
-$posts = Post::with('creator')->orderByDesc('pst_created_at')->get();

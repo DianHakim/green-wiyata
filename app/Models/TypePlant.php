@@ -9,8 +9,9 @@ class TypePlant extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'typeplants';   // sesuai nama tabel
+    protected $table = 'typeplants';
     protected $primaryKey = 'tps_id';
+    public $timestamps = false;
     public $incrementing = true;
     protected $keyType = 'int';
 
@@ -26,13 +27,13 @@ class TypePlant extends Model
         'tps_sys_note'
     ];
 
-    // Relasi ke plants
-    public function plants()
+    // Relasi ke posts (asumsi foreign key di posts adalah tps_id)
+    public function posts()
     {
-        return $this->hasMany(Plant::class, 'tps_id', 'tps_id');
+        return $this->hasMany(Post::class, 'tps_id', 'tps_id');
     }
 
-    public function typePlant()
+    public function typeplant()
 {
     return $this->belongsTo(TypePlant::class, 'tps_id', 'tps_id');
 }

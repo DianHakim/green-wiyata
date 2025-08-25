@@ -1,13 +1,12 @@
-{{-- resources/views/plants/create.blade.php --}}
-<x-layouts.main title="Tambah Plant">
-    <h1 class="mt-4 text-center">Add New Plants</h1>
+<x-layouts.main title="Tambah Post">
+    <h1 class="mt-4 text-center">Add New Post</h1>
 
     <div class="app-content">
         <div class="container d-flex justify-content-center">
             <div class="col-md-8">
                 <div class="card mb-4 shadow">
                     <div class="card-header text-center">
-                        <h3 class="card-title">Form Plant</h3>
+                        <h3 class="card-title">Form Post</h3>
                     </div>
                     <div class="card-body">
 
@@ -22,38 +21,21 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('plants.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <table class="table table-borderless align-middle">
                                 <tbody>
                                     <tr>
-                                        <td style="width: 30%"><label for="pts_name" class="form-label">Name Plant</label></td>
-                                        <td><input type="text" name="pts_name" id="pts_name" class="form-control" value="{{ old('pts_name') }}" required></td>
+                                        <td style="width: 30%"><label for="pst_content" class="form-label">Content</label></td>
+                                        <td><input type="text" name="pst_content" id="pst_content" class="form-control" value="{{ old('pst_content') }}" required></td>
                                     </tr>
                                     <tr>
-                                        <td><label for="pts_date" class="form-label">Date</label></td>
-                                        <td><input type="date" name="pts_date" id="pts_date" class="form-control" value="{{ old('pts_date') }}" required></td>
+                                        <td><label for="pst_description" class="form-label">Description</label></td>
+                                        <td><textarea name="pst_description" id="pst_description" class="form-control" rows="3">{{ old('pst_description') }}</textarea></td>
                                     </tr>
                                     <tr>
-                                        <td><label for="pts_description" class="form-label">Deskription</label></td>
-                                        <td><textarea name="pts_description" id="pts_description" class="form-control" rows="3">{{ old('pts_description') }}</textarea></td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="pts_stok" class="form-label">Stock</label></td>
-                                        <td><input type="number" name="pts_stok" id="pts_stok" class="form-control" min="0" value="{{ old('pts_stok', 0) }}"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="location_id" class="form-label">Location</label></td>
-                                        <td>
-                                            <select name="location_id" id="location_id" class="form-select" required>
-                                                <option value="">-- Select Location --</option>
-                                                @foreach($locations as $location)
-                                                    <option value="{{ $location->lcn_id }}" {{ old('location_id') == $location->lcn_id ? 'selected' : '' }}>
-                                                        {{ $location->lcn_name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </td>
+                                        <td><label for="pst_date" class="form-label">Date</label></td>
+                                        <td><input type="date" name="pst_date" id="pst_date" class="form-control" value="{{ old('pst_date') }}" required></td>
                                     </tr>
                                     <tr>
                                         <td><label for="tps_id" class="form-label">Type Plant</label></td>
@@ -69,14 +51,27 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><label for="pts_img_path" class="form-label">Image</label></td>
-                                        <td><input type="file" name="pts_img_path" id="pts_img_path" class="form-control"></td>
+                                        <td><label for="pts_id" class="form-label">Plant</label></td>
+                                        <td>
+                                            <select name="pts_id" id="pts_id" class="form-select" required>
+                                                <option value="">-- Select Plant --</option>
+                                                @foreach($plants as $plant)
+                                                    <option value="{{ $plant->pts_id }}" {{ old('pts_id') == $plant->pts_id ? 'selected' : '' }}>
+                                                        {{ $plant->pts_name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="pst_img_path" class="form-label">Image</label></td>
+                                        <td><input type="file" name="pst_img_path" id="pst_img_path" class="form-control"></td>
                                     </tr>
                                 </tbody>
                             </table>
 
                             <div class="d-flex justify-content-between mt-3">
-                                <a href="{{ route('plants.index') }}" class="btn btn-secondary">Back</a>
+                                <a href="{{ route('posts.index') }}" class="btn btn-secondary">Back</a>
                                 <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </form>

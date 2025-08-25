@@ -1,17 +1,10 @@
 <x-layouts.main>
 @section('content')
-<div class="container py-4">
-    <h1 class="fw-bold">{{ $post->pst_content }}</h1>
-    <p class="text-muted">{{ $post->pst_date }}</p>
-
-    @if($post->pst_img_path)
-        <img src="{{ asset('storage/'.$post->pst_img_path) }}" class="img-fluid rounded mb-3" alt="Post Image">
-    @endif
-
-    <p>{{ $post->pst_description }}</p>
-    <p><small>Author: {{ $post->creator->usr_name ?? 'Unknown' }}</small></p>
-
-    <a href="{{ route('posts.index') }}" class="btn btn-secondary">Back</a>
+<div class="container mt-4">
+    <h1>{{ $post->plant_name }}</h1>
+    <img src="{{ asset('storage/' . $post->image) }}" class="img-fluid" alt="">
+    <p>Category: {{ $post->category }}</p>
+    <p>Location: {{ $post->location }}</p>
 </div>
 @endsection
 </x-layouts.main>

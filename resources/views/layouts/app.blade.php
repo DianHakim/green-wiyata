@@ -13,6 +13,22 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        
+        <style>
+            .page-link {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ccc;
+    display: inline-block;
+    padding: 0;
+}
+
+.page-item.active .page-link {
+    background: #333;
+}
+        </style>
+
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">

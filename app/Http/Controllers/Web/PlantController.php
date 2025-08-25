@@ -11,18 +11,23 @@ use Illuminate\Support\Facades\Auth;
 
 class PlantController extends Controller
 {
-    public function index()
-    {
-        $plants = Plant::with(['location', 'typePlant'])->get();
-        $typeplants = TypePlant::all();
-        return view('plants.index', compact('plants', 'typeplants'));
-    }
+public function index()
+{
+    $plants = Plant::with(['location', 'typePlant'])
+        ->orderByDesc('pts_created_at')
+        ->paginate(10); // <-- penting untuk links()
+
+    $typeplants = TypePlant::all();
+
+    return view('plants.index', compact('plants', 'typeplants'));
+}
 
     public function create()
     {
         $locations = Location::all();
         $typeplants = TypePlant::all();
-        return view('plants.create', compact('locations', 'typeplants'));
+        $plants = Plant::all();
+        return view('plants.create', compact('locations', 'typeplants', 'plants'));
     }
 
     public function store(Request $request)

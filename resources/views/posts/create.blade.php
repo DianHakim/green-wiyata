@@ -1,52 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Post</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
-    <div class="container py-4">
+<x-layouts.main title="Tambah Post">
+    <h1 class="mt-4 text-center">Add New Post</h1>
 
-        <h1 class="fw-bold mb-4">Create Post</h1>
+    <div class="app-content">
+        <div class="container d-flex justify-content-center">
+            <div class="col-md-8">
+                <div class="card mb-4 shadow">
+                    <div class="card-header text-center">
+                        <h3 class="card-title">Form Post</h3>
+                    </div>
+                    <div class="card-body">
 
-        <div class="card shadow-sm border-0">
-            <div class="card-body">
-                <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    <div class="mb-3">
-        <label class="form-label">Content</label>
-        <input type="text" name="pst_content" class="form-control" placeholder="Enter content" required>
-    </div>
+                        {{-- Tampilkan error validasi --}}
+                        @if($errors->any())
+                            <div class="alert alert-danger mb-3">
+                                <ul class="mb-0">
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
 
-    <div class="mb-3">
-        <label class="form-label">Description</label>
-        <textarea name="pst_description" rows="5" class="form-control" placeholder="Enter description"></textarea>
-    </div>
+                        <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
 
-    <div class="mb-3">
-        <label class="form-label">Date</label>
-        <input type="date" name="pst_date" class="form-control" required>
-    </div>
+                        {{-- Content --}}
+                        <div class="mb-3">
+                            <label for="pst_content" class="form-label">Content</label>
+                            <textarea name="pst_content" id="pst_content" class="form-control">{{ old('pst_content') }}</textarea>
+                            @error('pst_content')<div class="text-danger">{{ $message }}</div>@enderror
+                        </div>
 
-    <div class="mb-3">
-        <label class="form-label">Image (optional)</label>
-        <input type="file" name="pst_img_path" class="form-control" accept="image/*">
-    </div>
+                        {{-- Description --}}
+                        <div class="mb-3">
+                            <label for="pst_description" class="form-label">Description</label>
+                           <textarea name="pst_description" id="pst_description" class="form-control">{{ old('pst_description') }}</textarea>
+                        </div>
 
-    <button type="submit" class="btn btn-success">Save</button>
-    <button type="submit" href="{{ route('posts.index') }}" class="btn btn-secondary">Cancel</button>
-</form>
+                        {{-- Date --}}
+                        <div class="mb-3">
+                            <label for="pst_date" class="form-label">Post Date</label>
+                            <input type="date" name="pst_date" id="pst_date" class="form-control" value="{{ old('pst_date') }}">
+                            @error('pst_date')<div class="text-danger">{{ $message }}</div>@enderror
+                        </div>
 
+                        {{-- Category (tps_id) --}}
+                        <div class="mb-3">
+                            <label for="tps_id" class="form-label">Category</label>
+                            <select name="tps_id" id="tps_id" class="form-select">
+                                <option value="">-- Select Category --</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->tps_id }}" {{ old('tps_id') == $category->tps_id ? 'selected' : '' }}>
+                                        {{ $category->tps_name }}
+                                    </option>
+                               @endforeach
+                            </select>
+                            @error('tps_id')<div class="text-danger">{{ $message }}</div>@enderror
+                        </div>
+
+                        {{-- Image --}}
+                        <div class="mb-3">
+                            <label for="pst_img_path" class="form-label">Image (optional)</label>
+                            <input type="file" name="pst_img_path" id="pst_img_path" class="form-control">
+                            @error('pst_img_path')<div class="text-danger">{{ $message }}</div>@enderror
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Save Post</button>
+                    </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-    <footer class="bg-white border-top py-3 mt-auto">
-        <div class="container text-center">
-            <small class="text-muted">&copy; 2025 Dashboard by Nabil. All rights reserved.</small>
-        </div>
-    </footer>
-</body>
-</html>
+</x-layouts.main>

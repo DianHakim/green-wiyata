@@ -26,8 +26,8 @@
         <h6 class="fs-5 text-center mb-5">GreenWiyata</h6>
 
         {{-- Pesan sukses dari session --}}
-        @if(session('success'))
-          <div class="alert alert-success">{{ session('success') }}</div>
+        @if(session('Berhasil!'))
+          <div class="alert alert-success">{{ session('Berhasil!') }}</div>
         @endif
 
         {{-- Validasi error --}}
@@ -52,14 +52,13 @@
           </div>
           <div class="mb-3 form-check">
             <input type="checkbox" class="form-check-input" id="remember" name="remember">
-            <input type="checkbox" class="form-check-input" name="remember" id="remember">
-            <label class="form-check-label" for="remember">Remember Me</label>
+            <label class="form-check-label" for="remember">Ingat Saya</label>
           </div>
           <div class="d-grid">
             <button type="submit" class="btn btn-success">Masuk</button>
           </div>
           <p class="mt-3 text-center">
-            Don't have an account? <a href="{{ route('register') }}" class="text-info">Register here</a>
+           Tidak memiliki akun?<a href="{{ route('register') }}" class="text-info"> Registrasi disini</a>
           </p>
         </form>
       </div>

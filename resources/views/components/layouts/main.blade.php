@@ -24,6 +24,7 @@
         <div id="layoutSidenav_content">
             <main class="p-4">
                 {{ $slot }}
+                @yield('content')
             </main>
         </div>
     </div>
