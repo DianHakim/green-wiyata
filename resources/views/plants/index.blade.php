@@ -1,79 +1,87 @@
-{{-- resources/views/plants/index.blade.php --}}
-<x-layouts.main title="Plants">
-    <h1 class="mt-4">Plants</h1>
+<x-layouts.main title="Tanaman">
+    <h1 class="mt-4 mb-3 fw-bold text-success">🌱 Daftar Tanaman</h1>
 
     <div class="app-content">
         <div class="container-fluid">
 
             @if(session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
+                <div class="alert alert-success shadow-sm">
+                    {{ session('success') }}
+                </div>
             @endif
 
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <div>
-                    {{-- contoh filter kategori bila diperlukan --}}
-                    {{-- <form method="GET">
-                        <select name="tps_id" class="form-select" style="width:220px" onchange="this.form.submit()">
-                            <option value="">All Types</option>
-                            @foreach($typeplants as $cat)
-                                <option value="{{ $cat->tps_id }}" {{ request('tps_id') == $cat->tps_id ? 'selected' : '' }}>
-                                    {{ $cat->tps_type }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </form> --}}
-                </div>
-                <a href="{{ route('plants.create') }}" class="btn btn-primary btn-sm">+ Add Plant</a>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="mb-0 text-muted">Kelola data tanaman dengan mudah</h5>
+                <a href="{{ route('plants.create') }}" class="btn btn-success btn-sm">
+                    <i class="bi bi-plus-circle"></i> Tambah Tanaman
+                </a>
             </div>
 
-            <div class="card shadow">
-                <div class="card-body">
-                    <table class="table table-bordered align-middle text-center">
-                        <thead class="table-light">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-body p-4">
+                    <table class="table table-hover table-striped align-middle text-center">
+                        <thead class="table-success">
                             <tr>
                                 <th style="width:60px">#</th>
-                                <th>Name</th>
-                                <th>Type</th>
-                                <th>Location</th>
-                                <th>Stock</th>
-                                <th>Date</th>
-                                <th style="width:150px">Action</th>
+                                <th>Nama</th>
+                                <th>Jenis</th>
+                                <th>Lokasi</th>
+                                <th>Stok</th>
+                                <th>Tanggal Tanam</th>
+                                <th style="width:180px">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse($plants as $index => $plant)
                                 <tr>
                                     <td>{{ ($plants->firstItem() ?? 1) + $index }}</td>
-                                    <td>{{ $plant->pts_name }}</td>
-                                    <td>{{ $plant->typePlant->tps_type ?? '-' }}</td>
-                                    <td>{{ $plant->location->lcn_name ?? '-' }}</td>
-                                    <td>{{ $plant->pts_stok }}</td>
-                                    <td>{{ \Illuminate\Support\Carbon::parse($plant->pts_date)->format('Y-m-d') }}</td>
+                                    <td class="fw-semibold">{{ $plant->pts_name }}</td>
                                     <td>
-                                        <div class="btn-group btn-group-sm">
-                                            <a href="{{ route('plants.show', $plant->pts_id) }}" class="btn btn-info">Detail</a>
-                                            <a href="{{ route('plants.edit', $plant->pts_id) }}" class="btn btn-warning">Edit</a>
-                                            <form action="{{ route('plants.destroy', $plant->pts_id) }}" method="POST" onsubmit="return confirm('Hapus plant ini?')">
+                                        <span class="badge bg-primary">
+                                            {{ $plant->typePlant->tps_type ?? '-' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-info text-dark">
+                                            {{ $plant->location->lcn_name ?? '-' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="fw-bold text-success">{{ $plant->pts_stok }}</span>
+                                    </td>
+                                    <td>{{ \Illuminate\Support\Carbon::parse($plant->pts_date)->translatedFormat('d F Y') }}</td>
+                                    <td>
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <a href="{{ route('plants.show', $plant->pts_id) }}" class="btn btn-info btn-sm">
+                                                <i class="bi bi-eye"></i> Detail
+                                            </a>
+                                            <a href="{{ route('plants.edit', $plant->pts_id) }}" class="btn btn-warning btn-sm">
+                                                <i class="bi bi-pencil"></i> Edit
+                                            </a>
+                                            <form action="{{ route('plants.destroy', $plant->pts_id) }}" method="POST" onsubmit="return confirm('Yakin mau hapus tanaman ini?')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button class="btn btn-danger">Delete</button>
+                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                    <i class="bi bi-trash"></i> Hapus
+                                                </button>
                                             </form>
                                         </div>
                                     </td>
                                 </tr>
                             @empty
-                                <tr><td colspan="7" class="text-center">Belum ada plant.</td></tr>
+                                <tr>
+                                    <td colspan="7" class="text-center text-muted">
+                                        Belum ada data tanaman 🌿
+                                    </td>
+                                </tr>
                             @endforelse
                         </tbody>
                     </table>
-
-                    {{-- tampilkan pagination kalau pakai paginate() --}}
                     <div class="mt-3 d-flex justify-content-center">
                         {{ $plants->links() }}
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </x-layouts.main>
