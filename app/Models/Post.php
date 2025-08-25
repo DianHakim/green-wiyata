@@ -28,7 +28,8 @@ class Post extends Model
         'pst_deleted_by',
         'pst_sys_note',
         'location_lat',
-        'location_lng'
+        'location_lng',
+        'pts_id',
     ];
 
     protected $dates = [
@@ -46,7 +47,7 @@ class Post extends Model
 
     public function plant()
     {
-        return $this->belongsTo(Plant::class, 'plant_id', 'pts_id');
+        return $this->belongsTo(Plant::class, 'pts_id', 'pts_id');
     }
 
     public function typeplant()

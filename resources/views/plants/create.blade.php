@@ -1,16 +1,16 @@
-<x-layouts.main title="Tambah Post">
-    <h1 class="mt-4 text-center">Add New Post</h1>
+<x-layouts.main title="Tambah Plant">
+    <h1 class="mt-4 text-center">Add New Plant</h1>
 
     <div class="app-content">
         <div class="container d-flex justify-content-center">
             <div class="col-md-8">
                 <div class="card mb-4 shadow">
                     <div class="card-header text-center">
-                        <h3 class="card-title">Form Post</h3>
+                        <h3 class="card-title">Form Plant</h3>
                     </div>
                     <div class="card-body">
 
-                        {{-- Tampilkan error jika validasi gagal --}}
+                        {{-- Tampilkan error validasi --}}
                         @if($errors->any())
                             <div class="alert alert-danger mb-3">
                                 <ul class="mb-0">
@@ -21,61 +21,35 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('plants.store') }}" method="POST">
                             @csrf
-                            <table class="table table-borderless align-middle">
-                                <tbody>
-                                    <tr>
-                                        <td style="width: 30%"><label for="pst_content" class="form-label">Content</label></td>
-                                        <td><input type="text" name="pst_content" id="pst_content" class="form-control" value="{{ old('pst_content') }}" required></td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="pst_description" class="form-label">Description</label></td>
-                                        <td><textarea name="pst_description" id="pst_description" class="form-control" rows="3">{{ old('pst_description') }}</textarea></td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="pst_date" class="form-label">Date</label></td>
-                                        <td><input type="date" name="pst_date" id="pst_date" class="form-control" value="{{ old('pst_date') }}" required></td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="tps_id" class="form-label">Type Plant</label></td>
-                                        <td>
-                                            <select name="tps_id" id="tps_id" class="form-select" required>
-                                                <option value="">-- Select Type --</option>
-                                                @foreach($typeplants as $type)
-                                                    <option value="{{ $type->tps_id }}" {{ old('tps_id') == $type->tps_id ? 'selected' : '' }}>
-                                                        {{ $type->tps_type }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="pts_id" class="form-label">Plant</label></td>
-                                        <td>
-                                            <select name="pts_id" id="pts_id" class="form-select" required>
-                                                <option value="">-- Select Plant --</option>
-                                                @foreach($plants as $plant)
-                                                    <option value="{{ $plant->pts_id }}" {{ old('pts_id') == $plant->pts_id ? 'selected' : '' }}>
-                                                        {{ $plant->pts_name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="pst_img_path" class="form-label">Image</label></td>
-                                        <td><input type="file" name="pst_img_path" id="pst_img_path" class="form-control"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                            <div class="d-flex justify-content-between mt-3">
-                                <a href="{{ route('posts.index') }}" class="btn btn-secondary">Back</a>
-                                <button type="submit" class="btn btn-primary">Save</button>
+                            <div class="mb-3">
+                                <label for="pts_name" class="form-label">Nama Tanaman</label>
+                                <input type="text" name="pts_name" id="pts_name" class="form-control" required>
                             </div>
-                        </form>
 
+                            <div class="mb-3">
+                                <label for="tps_type" class="form-label">Jenis Tanaman</label>
+                                <input type="text" name="tps_type" id="tps_type" class="form-control" placeholder="Masukkan jenis tanaman baru" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="pts_stok" class="form-label">Stok</label>
+                                <input type="number" name="pts_stok" id="pts_stok" class="form-control" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="pts_date" class="form-label">Tanggal Tanam</label>
+                                <input type="date" name="pts_date" id="pts_date" class="form-control" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="lcn_name" class="form-label">Lokasi</label>
+                                <input type="text" name="lcn_name" id="lcn_name" class="form-control" placeholder="Masukkan lokasi baru" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </form>
                     </div>
                 </div>
             </div>

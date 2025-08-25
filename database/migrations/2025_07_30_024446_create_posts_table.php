@@ -31,6 +31,8 @@ return new class extends Migration
     $table->string('pst_sys_note', 255)->nullable();
 
     // foreign keys
+    $table->unsignedBigInteger('pts_id')->nullable();
+    $table->foreign('pts_id')->references('pts_id')->on('plants')->onDelete('cascade');
     $table->foreign('pst_created_by')->references('usr_id')->on('users');
     $table->foreign('pst_updated_by')->references('usr_id')->on('users');
     $table->foreign('pst_deleted_by')->references('usr_id')->on('users');

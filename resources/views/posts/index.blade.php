@@ -31,7 +31,7 @@
                                         <h5 class="card-title">{{ $post->pst_content ?? 'Tanpa Judul' }}</h5>
                                         <p class="card-text text-muted">{{ $post->pst_description ?? '-' }}</p>
                                         <h5>{{ $post->plant->pts_name ?? 'Tanaman tidak ditemukan' }}</h5>
-                                        <p>Jenis: {{ $post->plant->typePlant->tps_name ?? '-' }}</p>
+                                        <p>Jenis: {{ $post->plant->typePlant->tps_type ?? '-' }}</p>
                                     </div>
 
                                     <div class="card-footer d-flex justify-content-between">

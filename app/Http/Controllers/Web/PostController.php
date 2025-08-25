@@ -36,14 +36,12 @@ class PostController extends Controller
     ]);
 }
 
-
-
 public function create()
     {
         $plants = Plants::all();
-        $categories = TypePlant::all();
+        $typeplants = TypePlant::all();
 
-        return view('posts.create', compact('plants', 'categories'));
+        return view('posts.create', compact('plants', 'typeplants'));
     }
 
     public function store(Request $request)
@@ -52,7 +50,8 @@ public function create()
             'pst_content' => 'required',
             'pst_date' => 'required|date',
             'pst_img_path' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'tps_id' => 'required|exists:typeplants,tps_id'
+            'tps_id' => 'required|exists:typeplants,tps_id',
+            'pts_id' => 'required|exists:plants,pts_id',
         ]);
 
         $imagePath = $request->hasFile('pst_img_path') 
@@ -60,22 +59,26 @@ public function create()
             : null;
 
         Post::create([
-            'pst_content' => $request->pst_content,
-            'pst_date' => $request->pst_date,
-            'pst_img_path' => $imagePath,
-            'pst_description' => $request->pst_description,
-            'tps_id' => $request->tps_id,
-            'pst_created_at' => now(),
-            'pst_created_by' => Auth::id(),
+        'pst_content' => $request->pst_content,
+        'pst_date' => $request->pst_date,
+        'pst_img_path' => $imagePath,
+        'pst_description' => $request->pst_description,
+        'tps_id' => $request->tps_id,
+        'pts_id' => $request->pts_id,
+        'pts_id' => $request->pts_id,
+        'pst_created_at' => now(),
+        'pst_created_by' => Auth::id(),
         ]);
+
 
         return redirect()->route('posts.index')->with('success', 'Post created successfully!');
     }
 
         public function show($id)
     {
-        $post = Post::findOrFail($id);
+        $post = Post::with('plant.typePlant')->findOrFail($id);
         return view('posts.show', compact('post'));
+
     }
 
 
@@ -94,7 +97,8 @@ public function create()
             'pst_content' => 'required',
             'pst_date' => 'required|date',
             'pst_img_path' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'tps_id' => 'required|exists:typeplants,tps_id'
+            'tps_id' => 'required|exists:typeplants,tps_id',
+            'pts_id'      => 'required|exists:plants,pts_id'
         ]);
 
         $imagePath = $post->pst_img_path;

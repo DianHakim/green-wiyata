@@ -33,9 +33,17 @@ class TypePlant extends Model
         return $this->hasMany(Post::class, 'tps_id', 'tps_id');
     }
 
-    public function typeplant()
+    public function typePlantThroughPlant()
 {
-    return $this->belongsTo(TypePlant::class, 'tps_id', 'tps_id');
+    return $this->hasOneThrough(
+        TypePlant::class,
+        Plant::class,
+        'pts_id',
+        'tps_id',
+        'pts_id',
+        'tps_id'  
+    );
 }
+
 
 }

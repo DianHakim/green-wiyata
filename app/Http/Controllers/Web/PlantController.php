@@ -11,50 +11,68 @@ use Illuminate\Support\Facades\Auth;
 
 class PlantController extends Controller
 {
-public function index()
-{
-    $plants = Plant::with(['location', 'typePlant'])
-        ->orderByDesc('pts_created_at')
-        ->paginate(10); // <-- penting untuk links()
+    public function index()
+    {
+        $plants = Plant::with(['location', 'typePlant'])
+            ->orderByDesc('pts_created_at')
+            ->paginate(10);
 
-    $typeplants = TypePlant::all();
+        $typeplants = TypePlant::all();
 
-    return view('plants.index', compact('plants', 'typeplants'));
-}
+        return view('plants.index', compact('plants', 'typeplants'));
+    }
 
     public function create()
     {
-        $locations = Location::all();
-        $typeplants = TypePlant::all();
         $plants = Plant::all();
-        return view('plants.create', compact('locations', 'typeplants', 'plants'));
+        return view('plants.create', compact('plants'));
     }
 
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'pts_name' => 'required|string|max:255',
-            'location_id' => 'required|integer',
-            'tps_id' => 'required|integer',
-            'pts_stok' => 'required|integer',
-            'pts_date' => 'required|date',
-            'pts_description' => 'nullable|string',
-            'pts_img_path' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        ]);
+{
+    $validated = $request->validate([
+        'pts_name'       => 'required|string|max:255',
+        'tps_type'       => 'required|string|max:255',
+        'lcn_name'       => 'required|string|max:255',
+        'pts_stok'       => 'required|integer',
+        'pts_date'       => 'required|date',
+        'pts_description'=> 'nullable|string',
+        'pts_img_path'   => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+    ]);
 
-        // Handle upload gambar
-        if ($request->hasFile('pts_img_path')) {
-            $validated['pts_img_path'] = $request->file('pts_img_path')->store('plants', 'public');
-        }
-
-        // Tambahkan kolom created_by & updated_by
-        $validated['pts_created_by'] = Auth::id() ?? 'system';
-        $validated['pts_updated_by'] = Auth::id() ?? 'system';
-
-        Plant::create($validated);
-
-        return redirect()->route('plants.index')->with('success', 'Plant berhasil ditambahkan');
+    if ($request->hasFile('pts_img_path')) {
+        $validated['pts_img_path'] = $request->file('pts_img_path')->store('plants', 'public');
     }
+
+    // simpan lokasi baru kalau belum ada
+    $location = Location::firstOrCreate(
+        ['lcn_name' => $validated['lcn_name']],
+        [
+            'lcn_created_by' => Auth::id() ?? 'system',
+            'lcn_updated_by' => Auth::id() ?? 'system',
+        ]
+    );
+
+    // simpan typeplant baru kalau belum ada
+    $typeplant = TypePlant::firstOrCreate(
+        ['tps_type' => $validated['tps_type']]
+    );
+
+    Plant::create([
+        'pts_name'       => $validated['pts_name'],
+        'pts_stok'       => $validated['pts_stok'],
+        'pts_date'       => $validated['pts_date'],
+        'pts_description'=> $validated['pts_description'] ?? null,
+        'pts_img_path'   => $validated['pts_img_path'] ?? null,
+        'location_id'    => $location->lcn_id,
+        'tps_id'         => $typeplant->tps_id,
+        'pts_created_by' => Auth::id() ?? 'system',
+        'pts_updated_by' => Auth::id() ?? 'system',
+    ]);
+
+    return redirect()->route('plants.index')->with('success', 'Plant berhasil ditambahkan');
+}
+
 
     public function show($id)
     {
@@ -64,10 +82,8 @@ public function index()
 
     public function edit($id)
     {
-        $plant = Plant::findOrFail($id);
-        $locations = Location::all();
-        $typeplants = TypePlant::all();
-        return view('plants.edit', compact('plant', 'locations', 'typeplants'));
+        $plant = Plant::with(['location', 'typePlant'])->findOrFail($id);
+        return view('plants.edit', compact('plant'));
     }
 
     public function update(Request $request, $id)
@@ -75,24 +91,38 @@ public function index()
         $plant = Plant::findOrFail($id);
 
         $validated = $request->validate([
-            'pts_name' => 'required|string|max:255',
-            'location_id' => 'required|integer',
-            'tps_id' => 'required|integer',
-            'pts_stok' => 'required|integer',
-            'pts_date' => 'required|date',
-            'pts_description' => 'nullable|string',
-            'pts_img_path' => 'nullable|image|mimes:jpg,jpeg,png|max:5120', // 5120 KB = 5 MB
+            'pts_name'       => 'required|string|max:255',
+            'tps_type'       => 'required|string|max:255',
+            'lcn_name'       => 'required|string|max:255',
+            'pts_stok'       => 'required|integer',
+            'pts_date'       => 'required|date',
+            'pts_description'=> 'nullable|string',
+            'pts_img_path'   => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
         ]);
 
-        // Handle update gambar
         if ($request->hasFile('pts_img_path')) {
             $validated['pts_img_path'] = $request->file('pts_img_path')->store('plants', 'public');
         }
 
-        // Tambahkan updated_by setiap kali update
-        $validated['pts_updated_by'] = Auth::id() ?? 'system';
+        $location = Location::firstOrCreate(
+            ['lcn_name' => $validated['lcn_name']],
+            [
+                'lcn_created_by' => Auth::id(),
+                'lcn_updated_by' => Auth::id(),
+            ]
+        );
+        $typeplant = TypePlant::firstOrCreate(['tps_type' => $validated['tps_type']]);
 
-        $plant->update($validated);
+        $plant->update([
+            'pts_name'       => $validated['pts_name'],
+            'pts_stok'       => $validated['pts_stok'],
+            'pts_date'       => $validated['pts_date'],
+            'pts_description'=> $validated['pts_description'] ?? null,
+            'pts_img_path'   => $validated['pts_img_path'] ?? $plant->pts_img_path,
+            'location_id'    => $location->lcn_id,
+            'tps_id'         => $typeplant->tps_id,
+            'pts_updated_by' => Auth::id() ?? 'system',
+        ]);
 
         return redirect()->route('plants.index')->with('success', 'Plant updated successfully');
     }

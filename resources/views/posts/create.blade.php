@@ -3,14 +3,14 @@
 
     <div class="app-content">
         <div class="container d-flex justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <div class="card mb-4 shadow">
                     <div class="card-header text-center">
                         <h3 class="card-title">Form Post</h3>
                     </div>
                     <div class="card-body">
 
-                        {{-- Tampilkan error validasi --}}
+                        {{-- Tampilkan error jika validasi gagal --}}
                         @if($errors->any())
                             <div class="alert alert-danger mb-3">
                                 <ul class="mb-0">
@@ -22,51 +22,78 @@
                         @endif
 
                         <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
+                            @csrf
+                            <table class="table table-borderless align-middle">
+                                <tbody>
+                                    {{-- Content --}}
+                                    <tr>
+                                        <td style="width: 25%"><label for="pst_content" class="form-label">Content</label></td>
+                                        <td><input type="text" name="pst_content" id="pst_content" 
+                                                   class="form-control" 
+                                                   value="{{ old('pst_content') }}" required></td>
+                                    </tr>
 
-                        {{-- Content --}}
-                        <div class="mb-3">
-                            <label for="pst_content" class="form-label">Content</label>
-                            <textarea name="pst_content" id="pst_content" class="form-control">{{ old('pst_content') }}</textarea>
-                            @error('pst_content')<div class="text-danger">{{ $message }}</div>@enderror
-                        </div>
+                                    {{-- Description --}}
+                                    <tr>
+                                        <td><label for="pst_description" class="form-label">Description</label></td>
+                                        <td><textarea name="pst_description" id="pst_description" 
+                                                      class="form-control" rows="3">{{ old('pst_description') }}</textarea></td>
+                                    </tr>
 
-                        {{-- Description --}}
-                        <div class="mb-3">
-                            <label for="pst_description" class="form-label">Description</label>
-                           <textarea name="pst_description" id="pst_description" class="form-control">{{ old('pst_description') }}</textarea>
-                        </div>
+                                    {{-- Date --}}
+                                    <tr>
+                                        <td><label for="pst_date" class="form-label">Date</label></td>
+                                        <td><input type="date" name="pst_date" id="pst_date" 
+                                                   class="form-control" 
+                                                   value="{{ old('pst_date') }}" required></td>
+                                    </tr>
 
-                        {{-- Date --}}
-                        <div class="mb-3">
-                            <label for="pst_date" class="form-label">Post Date</label>
-                            <input type="date" name="pst_date" id="pst_date" class="form-control" value="{{ old('pst_date') }}">
-                            @error('pst_date')<div class="text-danger">{{ $message }}</div>@enderror
-                        </div>
+                                    {{-- Type Plant (tps_id) --}}
+                                    <tr>
+                                        <td><label for="tps_id" class="form-label">Type Plant</label></td>
+                                        <td>
+                                            <select name="tps_id" id="tps_id" class="form-select" required>
+                                                <option value="">-- Select Type --</option>
+                                                @foreach($typeplants as $type)
+                                                    <option value="{{ $type->tps_id }}" 
+                                                        {{ old('tps_id') == $type->tps_id ? 'selected' : '' }}>
+                                                        {{ $type->tps_type }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                    </tr>
 
-                        {{-- Category (tps_id) --}}
-                        <div class="mb-3">
-                            <label for="tps_id" class="form-label">Category</label>
-                            <select name="tps_id" id="tps_id" class="form-select">
-                                <option value="">-- Select Category --</option>
-                                @foreach($categories as $category)
-                                    <option value="{{ $category->tps_id }}" {{ old('tps_id') == $category->tps_id ? 'selected' : '' }}>
-                                        {{ $category->tps_name }}
-                                    </option>
-                               @endforeach
-                            </select>
-                            @error('tps_id')<div class="text-danger">{{ $message }}</div>@enderror
-                        </div>
+                                    {{-- Plant (pts_id) --}}
+                                    <tr>
+                                        <td><label for="pts_id" class="form-label">Plant</label></td>
+                                        <td>
+                                            <select name="pts_id" id="pts_id" class="form-select" required>
+                                                <option value="">-- Select Plant --</option>
+                                                @foreach($plants as $plant)
+                                                    <option value="{{ $plant->pts_id }}" 
+                                                        {{ old('pts_id') == $plant->pts_id ? 'selected' : '' }}>
+                                                        {{ $plant->pts_name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                    </tr>
 
-                        {{-- Image --}}
-                        <div class="mb-3">
-                            <label for="pst_img_path" class="form-label">Image (optional)</label>
-                            <input type="file" name="pst_img_path" id="pst_img_path" class="form-control">
-                            @error('pst_img_path')<div class="text-danger">{{ $message }}</div>@enderror
-                        </div>
+                                    {{-- Image --}}
+                                    <tr>
+                                        <td><label for="pst_img_path" class="form-label">Image</label></td>
+                                        <td><input type="file" name="pst_img_path" id="pst_img_path" class="form-control"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
-                        <button type="submit" class="btn btn-primary">Save Post</button>
-                    </form>
+                            <div class="d-flex justify-content-between mt-3">
+                                <a href="{{ route('posts.index') }}" class="btn btn-secondary">Back</a>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             </div>
