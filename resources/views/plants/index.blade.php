@@ -12,9 +12,15 @@
 
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h5 class="mb-0 text-muted">Kelola data tanaman dengan mudah</h5>
-                <a href="{{ route('plants.create') }}" class="btn btn-success btn-sm">
-                    <i class="bi bi-plus-circle"></i> Tambah Tanaman
-                </a>
+                <div class="d-flex gap-2">
+                    <a href="{{ route('plants.create') }}" class="btn btn-success btn-sm">
+                        <i class="bi bi-plus-circle"></i> Tambah Tanaman
+                    </a>
+                    <!-- Tombol Tambah Tipe Tanaman -->
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addTypePlantModal">
+                        <i class="bi bi-tags-fill"></i> Tambah Tipe Tanaman
+                    </button>
+                </div>
             </div>
 
             <div class="card shadow-lg border-0 rounded-3">
@@ -81,6 +87,31 @@
                         {{ $plants->links() }}
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Tambah Tipe Tanaman -->
+    <div class="modal fade" id="addTypePlantModal" tabindex="-1" aria-labelledby="addTypePlantLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content shadow-lg">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="addTypePlantLabel"><i class="bi bi-tags-fill"></i> Tambah Tipe Tanaman</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('typeplants.store') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="tps_type" class="form-label">Nama Tipe Tanaman</label>
+                            <input type="text" name="tps_type" id="tps_type" class="form-control" placeholder="Contoh: Buah, Hias, Sayuran..." required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

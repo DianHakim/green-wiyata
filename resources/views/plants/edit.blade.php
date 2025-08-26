@@ -31,10 +31,16 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="tps_type" class="form-label">Jenis Tanaman</label>
-                                <input type="text" name="tps_type" id="tps_type"
-                                    class="form-control"
-                                    value="{{ old('tps_type', $plant->typeplant->tps_type ?? '') }}" required>
+                                <label for="tps_id" class="form-label">Jenis Tanaman</label>
+                                <select name="tps_id" id="tps_id" class="form-select" required>
+                                    <option value="">-- Pilih Jenis --</option>
+                                    @foreach($typeplants as $typeplant)
+                                        <option value="{{ $typeplant->tps_id }}"
+                                            {{ old('tps_id') == $typeplant->tps_id ? 'selected' : '' }}>
+                                            {{ $typeplant->tps_type }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="mb-3">
