@@ -59,4 +59,20 @@ class Post extends Model
     {
         return $this->belongsTo(Plant::class, 'pts_id', 'pts_id');
     }
+
+    public function createdBy()
+    {
+        return $this->belongsTo(\App\Models\User::class, 'pst_created_by');
+    }
+
+    public function updatedBy()
+    {
+        return $this->belongsTo(\App\Models\User::class, 'pst_updated_by');
+    }
+
+    public function deletedBy()
+    {
+        return $this->belongsTo(\App\Models\User::class, 'pst_deleted_by');
+    }
+
 }
