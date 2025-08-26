@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\plant;
 use App\Models\Location;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -78,9 +79,10 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
+        $plants = Plants::all();
         $locations = Location::all();
 
-        return view('posts.edit', compact('post', 'locations'));
+        return view('posts.edit', compact('post', 'plants' , 'locations'));
     }
 
     public function update(Request $request, $id)
@@ -92,9 +94,12 @@ class PostController extends Controller
             'pst_date'       => 'required|date',
             'pst_img_path'   => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'pst_description'=> 'nullable|string',
-            'lcn_id' => 'required|exists:locations,lcn_id',
+            'location_id' => 'required|exists:locations,lcn_id',
             'pts_id'         => 'required|exists:plants,pts_id',
         ]);
+
+        $validated['lcn_id'] = $validated['location_id'];
+        unset($validated['location_id']);
 
         $imagePath = $post->pst_img_path;
         if ($request->hasFile('pst_img_path')) {

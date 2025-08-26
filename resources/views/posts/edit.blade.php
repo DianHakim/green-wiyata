@@ -85,7 +85,6 @@
                                 @endif
                                 <input type="file" name="pst_img_path" id="pst_img_path"
                                     class="form-control" accept="image/*">
-                                <small class="text-muted">Kosongkan jika tidak ingin mengubah gambar</small>
                             </div>
 
                             <div class="d-flex justify-content-between mt-3">
