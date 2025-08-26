@@ -37,7 +37,7 @@ class PostController extends Controller
 
     public function create()
     {
-        $plants = Plants::all(); 
+        $plants = Plants::all();
         $locations = Location::all();
         return view('posts.create', compact('locations', 'plants'));
     }
@@ -45,27 +45,27 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-        'pst_content'    => 'required|string',
-        'pst_date'       => 'required|date',
-        'pst_description'=> 'nullable|string',
-        'pst_img_path'   => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        'lcn_id' => 'required|exists:locations,lcn_id',
-        'pts_id'         => 'required|exists:plants,pts_id',
-    ]);
+            'pst_content'     => 'required|string',
+            'pst_date'        => 'required|date',
+            'pst_description' => 'nullable|string',
+            'pst_img_path'    => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'lcn_id'          => 'required|exists:locations,lcn_id',
+            'pts_id'          => 'required|exists:plants,pts_id',
+        ]);
 
-        $imagePath = $request->hasFile('pst_img_path') 
-            ? $request->file('pst_img_path')->store('posts', 'public') 
+        $imagePath = $request->hasFile('pst_img_path')
+            ? $request->file('pst_img_path')->store('posts', 'public')
             : null;
 
         Post::create([
-        'pst_content'    => $validated['pst_content'],
-        'pst_date'       => $validated['pst_date'],
-        'pst_img_path'   => $validated['pst_img_path'] ?? null,
-        'pst_description'=> $validated['pst_description'] ?? null,
-        'lcn_id' => $validated['lcn_id'],
-        'pts_id'         => $validated['pts_id'],
-        'pst_created_by' => Auth::id(),
-    ]);
+            'pst_content'    => $validated['pst_content'],
+            'pst_date'       => $validated['pst_date'],
+            'pst_img_path'   => $imagePath,
+            'pst_description' => $validated['pst_description'] ?? null,
+            'lcn_id'         => $validated['lcn_id'],
+            'pts_id'         => $validated['pts_id'],
+            'pst_created_by' => Auth::id(),
+        ]);
 
         return redirect()->route('posts.index')->with('success', 'Post created successfully!');
     }
@@ -82,7 +82,7 @@ class PostController extends Controller
         $plants = Plants::all();
         $locations = Location::all();
 
-        return view('posts.edit', compact('post', 'plants' , 'locations'));
+        return view('posts.edit', compact('post', 'plants', 'locations'));
     }
 
     public function update(Request $request, $id)
@@ -93,7 +93,7 @@ class PostController extends Controller
             'pst_content'    => 'required|string',
             'pst_date'       => 'required|date',
             'pst_img_path'   => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'pst_description'=> 'nullable|string',
+            'pst_description' => 'nullable|string',
             'location_id' => 'required|exists:locations,lcn_id',
             'pts_id'         => 'required|exists:plants,pts_id',
         ]);
@@ -113,7 +113,7 @@ class PostController extends Controller
             'pst_content'    => $validated['pst_content'],
             'pst_date'       => $validated['pst_date'],
             'pst_img_path'   => $imagePath,
-            'pst_description'=> $validated['pst_description'] ?? null,
+            'pst_description' => $validated['pst_description'] ?? null,
             'lcn_id'    => $validated['lcn_id'],
             'pts_id'         => $validated['pts_id'],
             'pst_updated_at' => now(),
