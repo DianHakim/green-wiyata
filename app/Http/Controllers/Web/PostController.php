@@ -82,12 +82,14 @@ public function create()
     }
 
 
-    public function edit($id)
-    {
-        $post = Post::findOrFail($id);
-        $categories = TypePlant::all();
-        return view('posts.edit', compact('post', 'categories'));
-    }
+   public function edit($id)
+{
+    $post = Post::findOrFail($id);
+    $typeplants = TypePlant::all();
+    $plants = Plants::all();
+
+    return view('posts.edit', compact('post', 'typeplants', 'plants'));
+}
 
     public function update(Request $request, $id)
     {

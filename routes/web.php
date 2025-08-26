@@ -36,15 +36,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     
     // Location Plant
-    Route::prefix('locationplant')->group(function () {
-        Route::get('/', [LocationPlantController::class, 'index'])->name('locationplant.index');
-        Route::get('/add', [LocationPlantController::class, 'create'])->name('locationplant.add');
-        Route::post('/show', [LocationPlantController::class, 'show'])->name('locationplant.show');
-        Route::get('/{id}', [LocationPlantController::class, 'show'])->name('locationplant.show');
-        Route::get('/{id}/edit', [LocationPlantController::class, 'edit'])->name('locationplant.edit');
-        Route::put('/{id}', [LocationPlantController::class, 'update'])->name('locationplant.update');
-        Route::delete('/{id}', [LocationPlantController::class, 'destroy'])->name('locationplant.delete');
-    });
+Route::prefix('locationplant')->name('locationplant.')->group(function () {
+    Route::get('/', [LocationPlantController::class, 'index'])->name('index');
+    Route::get('/add', [LocationPlantController::class, 'create'])->name('add');
+    Route::post('/', [LocationPlantController::class, 'store'])->name('store'); // <-- tambahin ini
+    Route::get('/{id}', [LocationPlantController::class, 'show'])->name('show');
+    Route::get('/{id}/edit', [LocationPlantController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [LocationPlantController::class, 'update'])->name('update');
+    Route::delete('/{id}', [LocationPlantController::class, 'destroy'])->name('delete');
+});
+
 
     // Plants
     Route::prefix('plants')->group(function () {

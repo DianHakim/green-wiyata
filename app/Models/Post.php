@@ -18,6 +18,11 @@ class Post extends Model
     const CREATED_AT = 'pst_created_at';
     const UPDATED_AT = 'pst_updated_at';
 
+    protected $casts = [
+    'pst_date' => 'date',
+];
+
+
     protected $fillable = [
         'pst_content',
         'pst_date',

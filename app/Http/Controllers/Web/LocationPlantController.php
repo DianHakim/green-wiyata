@@ -1,64 +1,46 @@
 <?php
+
 namespace App\Http\Controllers\Web;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Location;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class LocationPlantController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        return view('locationplant.index');
+        $locations = Location::all();
+        return view('locationplant.index', compact('locations'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('locationplant.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'lcn_name' => 'required|string|max:255',
+            'lcn_block' => 'nullable|string|max:255',
+            'lcn_img_path' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        $imgPath = null;
+        if ($request->hasFile('lcn_img_path')) {
+            $imgPath = $request->file('lcn_img_path')->store('locations', 'public');
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        Location::create([
+            'lcn_name'       => $request->lcn_name,
+            'lcn_block'      => $request->lcn_block,
+            'lcn_img_path'   => $imgPath,
+            'lcn_created_by' => Auth::user()->usr_id,
+        ]);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->route('locationplant.index')->with('success', 'Lokasi berhasil ditambahkan!');
     }
 }

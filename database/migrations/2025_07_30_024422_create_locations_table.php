@@ -22,6 +22,9 @@ return new class extends Migration
             $table->unsignedBigInteger('lcn_updated_by')->nullable();
             $table->unsignedBigInteger('lcn_deleted_by')->nullable();
             $table->string('lcn_sys_note')->nullable();
+            $table->decimal('lcn_latitude', 10, 7)->nullable();
+            $table->decimal('lcn_longitude', 10, 7)->nullable();
+
 
             $table->foreign('lcn_created_by')->references('usr_id')->on('users');
             $table->foreign('lcn_updated_by')->references('usr_id')->on('users');
