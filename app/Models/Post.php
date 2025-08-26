@@ -19,9 +19,8 @@ class Post extends Model
     const UPDATED_AT = 'pst_updated_at';
 
     protected $casts = [
-    'pst_date' => 'date',
-];
-
+        'pst_date' => 'date',
+    ];
 
     protected $fillable = [
         'pst_content',
@@ -34,7 +33,9 @@ class Post extends Model
         'pst_sys_note',
         'location_lat',
         'location_lng',
-        'pts_id',
+        'lcn_id',  
+        'pts_id', 
+        'location_id',
     ];
 
     protected $dates = [
@@ -44,19 +45,18 @@ class Post extends Model
         'pst_date',
     ];
 
-    // relasi ke user
     public function creator()
     {
         return $this->belongsTo(User::class, 'pst_created_by', 'usr_id');
     }
 
+    public function location()
+    {
+        return $this->belongsTo(Location::class, 'lcn_id', 'lcn_id');
+    }
+
     public function plant()
     {
         return $this->belongsTo(Plant::class, 'pts_id', 'pts_id');
-    }
-
-    public function typeplant()
-    {
-        return $this->belongsTo(TypePlant::class, 'tps_id', 'tps_id');
     }
 }

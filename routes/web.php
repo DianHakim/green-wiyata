@@ -37,13 +37,13 @@ Route::middleware('auth')->group(function () {
     
     // Location Plant
 Route::prefix('locationplant')->name('locationplant.')->group(function () {
-    Route::get('/', [LocationPlantController::class, 'index'])->name('index');
-    Route::get('/add', [LocationPlantController::class, 'create'])->name('add');
-    Route::post('/', [LocationPlantController::class, 'store'])->name('store'); // <-- tambahin ini
-    Route::get('/{id}', [LocationPlantController::class, 'show'])->name('show');
-    Route::get('/{id}/edit', [LocationPlantController::class, 'edit'])->name('edit');
-    Route::put('/{id}', [LocationPlantController::class, 'update'])->name('update');
-    Route::delete('/{id}', [LocationPlantController::class, 'destroy'])->name('delete');
+    Route::get('/', [LocationPlantController::class, 'index'])->name('index');          // GET /locationplant
+    Route::get('/create', [LocationPlantController::class, 'create'])->name('create');  // GET /locationplant/create
+    Route::post('/', [LocationPlantController::class, 'store'])->name('store');         // POST /locationplant
+    Route::get('/{id}', [LocationPlantController::class, 'show'])->name('show');        // GET /locationplant/{id}
+    Route::get('/{id}/edit', [LocationPlantController::class, 'edit'])->name('edit');   // GET /locationplant/{id}/edit
+    Route::put('/{id}', [LocationPlantController::class, 'update'])->name('update');    // PUT /locationplant/{id}
+    Route::delete('/{id}', [LocationPlantController::class, 'destroy'])->name('destroy'); // DELETE /locationplant/{id}
 });
 
 

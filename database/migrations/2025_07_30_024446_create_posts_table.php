@@ -20,17 +20,17 @@ return new class extends Migration
     $table->string('pst_img_path', 255)->nullable();
     $table->text('pst_description')->nullable();
 
-    // custom timestamp & soft delete
     $table->timestamp('pst_created_at')->nullable();
     $table->timestamp('pst_updated_at')->nullable();
     $table->timestamp('pst_deleted_at')->nullable();
 
+    $table->unsignedBigInteger('lcn_id')->nullable();
+    $table->foreign('lcn_id')->references('lcn_id')->on('locations')->onDelete('set null');
     $table->unsignedBigInteger('pst_created_by');
     $table->unsignedBigInteger('pst_updated_by')->nullable();
     $table->unsignedBigInteger('pst_deleted_by')->nullable();
     $table->string('pst_sys_note', 255)->nullable();
 
-    // foreign keys
     $table->unsignedBigInteger('pts_id')->nullable();
     $table->foreign('pts_id')->references('pts_id')->on('plants')->onDelete('cascade');
     $table->foreign('pst_created_by')->references('usr_id')->on('users');

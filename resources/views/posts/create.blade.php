@@ -48,22 +48,6 @@
                                                    value="{{ old('pst_date') }}" required></td>
                                     </tr>
 
-                                    {{-- Type Plant (tps_id) --}}
-                                    <tr>
-                                        <td><label for="tps_id" class="form-label">Type Plant</label></td>
-                                        <td>
-                                            <select name="tps_id" id="tps_id" class="form-select" required>
-                                                <option value="">-- Select Type --</option>
-                                                @foreach($typeplants as $type)
-                                                    <option value="{{ $type->tps_id }}" 
-                                                        {{ old('tps_id') == $type->tps_id ? 'selected' : '' }}>
-                                                        {{ $type->tps_type }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </td>
-                                    </tr>
-
                                     {{-- Plant (pts_id) --}}
                                     <tr>
                                         <td><label for="pts_id" class="form-label">Plant</label></td>
@@ -79,7 +63,18 @@
                                             </select>
                                         </td>
                                     </tr>
-
+                                    <div class="mb-3">
+                                        <label for="lcn_id" class="form-label">Lokasi</label>
+                                        <select name="lcn_id" id="lcn_id" class="form-select" required>
+                                            <option value="">-- Pilih Lokasi --</option>
+                                            @foreach($locations as $location)
+                                                <option value="{{ $location->lcn_id }}" 
+                                                    {{ old('lcn_id') == $location->lcn_id ? 'selected' : '' }}>
+                                                    {{ $location->lcn_name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                     {{-- Image --}}
                                     <tr>
                                         <td><label for="pst_img_path" class="form-label">Image</label></td>

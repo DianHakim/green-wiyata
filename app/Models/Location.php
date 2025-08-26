@@ -14,7 +14,6 @@ class Location extends Model
     public $incrementing = true;
     protected $keyType = 'int';
 
-    // kasih tau Laravel kolom soft delete yg dipake
     const DELETED_AT = 'lcn_deleted_at';
     const CREATED_AT = 'lcn_created_at';
     const UPDATED_AT = 'lcn_updated_at';
@@ -26,7 +25,9 @@ class Location extends Model
         'lcn_created_by',
         'lcn_updated_by',
         'lcn_deleted_by',
-        'lcn_sys_note'
+        'lcn_sys_note',
+        'lcn_latitude',
+        'lcn_longitude',
     ];
 
     public function plants()

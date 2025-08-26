@@ -32,13 +32,11 @@ class Plant extends Model
         'pts_sys_note'
     ];
 
-    // Relasi ke Location
     public function location()
     {
         return $this->belongsTo(Location::class, 'location_id', 'lcn_id');
     }
 
-    // 🔑 Relasi ke TypePlant
     public function typePlant()
     {
         return $this->belongsTo(TypePlant::class, 'tps_id', 'tps_id');

@@ -72,6 +72,8 @@ class DatabaseSeeder extends Seeder
             'lcn_created_by' => 1,
             'lcn_created_at' => now(),
             'lcn_updated_at' => now(),
+            'lcn_latitude' => '-6.200000',
+            'lcn_longitude' => '106.816666',
         ]);
 
         DB::table('posts')->insert([
