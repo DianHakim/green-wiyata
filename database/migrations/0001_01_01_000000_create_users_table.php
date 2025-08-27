@@ -23,9 +23,7 @@ return new class extends Migration
 
             $table->timestamp('usr_created_at')->nullable();
             $table->timestamp('usr_updated_at')->nullable();
-
             $table->softDeletes('usr_deleted_at');
-
             $table->string('usr_sys_note')->nullable();
 
             $table->foreign('usr_created_by')->references('usr_id')->on('users')->onDelete('cascade');
