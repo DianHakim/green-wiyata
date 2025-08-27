@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('locations', function (Blueprint $table) {
@@ -17,7 +14,6 @@ return new class extends Migration
             $table->string('lcn_block')->nullable();
             $table->string('lcn_img_path')->nullable();
 
-            // timestamps custom
             $table->timestamp('lcn_created_at')->nullable();
             $table->timestamp('lcn_updated_at')->nullable();
             $table->timestamp('lcn_deleted_at')->nullable();
@@ -30,16 +26,12 @@ return new class extends Migration
             $table->double('lcn_latitude', 10, 7)->nullable();
             $table->double('lcn_longitude', 10, 7)->nullable();
 
-            // foreign key
             $table->foreign('lcn_created_by')->references('usr_id')->on('users');
             $table->foreign('lcn_updated_by')->references('usr_id')->on('users');
             $table->foreign('lcn_deleted_by')->references('usr_id')->on('users');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('locations');

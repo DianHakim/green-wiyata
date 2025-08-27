@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('typeplants', function (Blueprint $table) {
@@ -18,14 +15,12 @@ return new class extends Migration
     $table->unsignedBigInteger('tps_updated_by')->nullable();
     $table->unsignedBigInteger('tps_deleted_by')->nullable();
 
-    // Custom timestamps
     $table->timestamp('tps_created_at')->nullable();
     $table->timestamp('tps_updated_at')->nullable();
     $table->timestamp('tps_deleted_at')->nullable();
 
     $table->string('tps_sys_note', 255)->nullable();
 
-    // Foreign keys
     $table->foreign('tps_created_by')->references('usr_id')->on('users');
     $table->foreign('tps_updated_by')->references('usr_id')->on('users');
     $table->foreign('tps_deleted_by')->references('usr_id')->on('users');
@@ -33,9 +28,6 @@ return new class extends Migration
 
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('typeplants');
