@@ -9,9 +9,6 @@ use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
         $now = Carbon::now();
@@ -22,8 +19,6 @@ class DatabaseSeeder extends Seeder
             MajorsSeeder::class,
             ClassesSeeder::class,
         ]);
-
-        // User::factory(10)->create();
 
 
         DB::table('users')->insert([
