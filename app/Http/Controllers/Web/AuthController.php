@@ -33,7 +33,7 @@ class AuthController extends Controller
         ])->onlyInput('email');
     }
 
-    // ===== REGISTER =====
+    // register
     public function showRegisterForm()
     {
         return view('auth.register');
@@ -70,7 +70,7 @@ class AuthController extends Controller
         return redirect()->route('home')->with('success', 'Registrasi berhasil!');
     }
 
-    // ===== LOGOUT =====
+    // logout
     public function logout(Request $request)
     {
         if (Auth::check()) {
