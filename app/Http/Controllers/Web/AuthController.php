@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    // ===== LOGIN =====
+    // login
     public function showLoginForm()
     {
         return view('auth.login');

@@ -8,7 +8,6 @@ class HomeController extends Controller
 {
     public function landing()
     {
-        // ini mengarah ke resources/views/landing.blade.php
         return view('home.landing');
     }
 
