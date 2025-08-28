@@ -25,7 +25,7 @@ class PlantController extends Controller
     public function create()
     {
         $locations = Location::all();
-        $typeplants = TypePlant::all(); // ← penting untuk blade
+        $typeplants = TypePlant::all();
 
         return view('plants.create', compact('locations', 'typeplants'));
     }
@@ -34,7 +34,7 @@ class PlantController extends Controller
     {
         $validated = $request->validate([
             'pts_name'        => 'required|string|max:255',
-            'tps_id'          => 'required|exists:typeplants,tps_id', // pilih dari dropdown
+            'tps_id'          => 'required|exists:typeplants,tps_id',
             'lcn_id'          => 'required|exists:locations,lcn_id',
             'pts_stok'        => 'required|integer',
             'pts_date'        => 'required|date',

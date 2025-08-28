@@ -17,16 +17,13 @@ class PostController extends Controller
     {
         $locations = Location::all();
 
-        // Base query dengan relasi creator + lokasi
         $query = Post::with(['creator', 'location'])
             ->orderByDesc('pst_created_at');
 
-        // Filter berdasarkan lokasi
         if ($request->has('location') && $request->location != '') {
             $query->where('lcn_id', $request->location);
         }
 
-        // Ambil data post
         $posts = $query->paginate(8);
 
         return view('posts.index', [
