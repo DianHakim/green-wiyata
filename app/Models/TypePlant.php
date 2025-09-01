@@ -27,7 +27,6 @@ class TypePlant extends Model
         'tps_sys_note'
     ];
 
-    // Relasi ke posts (asumsi foreign key di posts adalah tps_id)
     public function posts()
     {
         return $this->hasMany(Post::class, 'tps_id', 'tps_id');
@@ -44,6 +43,5 @@ class TypePlant extends Model
         'tps_id'  
     );
 }
-
 
 }
