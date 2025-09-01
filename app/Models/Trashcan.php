@@ -8,6 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Trashcan extends Model
 {
-    /** @use HasFactory<\Database\Factories\TrashcanFactory> */
     use HasFactory, Blameable;
 }

@@ -9,6 +9,5 @@ use App\Traits\Blameable;
 
 class Classes extends Model
 {
-    /** @use HasFactory<\Database\Factories\ClassesFactory> */
     use HasFactory, Blameable, SoftDeletes;
 }

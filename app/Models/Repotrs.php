@@ -8,6 +8,5 @@ use App\Traits\Blameable;
 
 class Repotrs extends Model
 {
-    /** @use HasFactory<\Database\Factories\RepotrsFactory> */
     use HasFactory, Blameable;
 }

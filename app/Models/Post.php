@@ -13,7 +13,6 @@ class Post extends Model
     protected $primaryKey = 'pst_id';
     public $timestamps = false;
 
-    // mapping kolom custom soft delete
     const DELETED_AT = 'pst_deleted_at';
     const CREATED_AT = 'pst_created_at';
     const UPDATED_AT = 'pst_updated_at';
