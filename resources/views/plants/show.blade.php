@@ -4,7 +4,6 @@
     <div class="app-content">
         <div class="container-fluid">
             <div class="row">
-                {{-- Kolom Foto Plant --}}
                 <div class="col-md-4 mb-4">
                     <div class="card shadow-sm p-3 text-center">
                         @if($plant->pts_img_path)
@@ -18,7 +17,6 @@
                     </div>
                 </div>
 
-                {{-- Kolom Detail Plant --}}
                 <div class="col-md-8">
                     <div class="card shadow-sm p-4">
                         <h3 class="mb-4">{{ $plant->pts_name }}</h3>
@@ -33,7 +31,6 @@
                         <p class="mt-3"><strong>Deskripsi:</strong></p>
                         <p class="text-muted">{{ $plant->pts_description ?? '-' }}</p>
 
-                        {{-- Tombol kembali --}}
                         <div class="text-center mt-4">
                             <a href="{{ route('plants.index') }}" 
                                class="btn btn-secondary btn-lg px-5 py-3" 
