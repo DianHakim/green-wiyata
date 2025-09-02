@@ -5,8 +5,6 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-    
-
     <div class="container mt-4">
         <table class="table table-bordered">
             <tr><th>ID</th><td>{{ $location->lcn_id }}</td></tr>
@@ -24,7 +22,6 @@
         style="height: 400px; margin-top:20px;"></div>
     </div>
 
-
 <script>
         const mapDiv = document.getElementById('map');
         const name = mapDiv.dataset.name;
@@ -39,10 +36,7 @@
             attribution: 'UNI-INVT'
         }).addTo(map);
 
-
         var alamatMarker = L.marker([lat, lng]).addTo(map);
         alamatMarker.bindPopup("<b>Location</b><br>" + name + "<br>").openPopup();
-
-
     </script>
 </x-layouts.main>
