@@ -16,7 +16,6 @@
                     <a href="{{ route('plants.create') }}" class="btn btn-success btn-sm">
                         <i class="bi bi-plus-circle"></i> Tambah Tanaman
                     </a>
-                    <!-- Tombol Tambah Tipe Tanaman -->
                     <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addTypePlantModal">
                         <i class="bi bi-tags-fill"></i> Tambah Tipe Tanaman
                     </button>
@@ -91,7 +90,6 @@
         </div>
     </div>
 
-    <!-- Modal Tambah Tipe Tanaman -->
     <div class="modal fade" id="addTypePlantModal" tabindex="-1" aria-labelledby="addTypePlantLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content shadow-lg">

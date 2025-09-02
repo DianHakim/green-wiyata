@@ -22,7 +22,6 @@
                         <form action="{{ route('plants.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
-                            {{-- Nama Tanaman --}}
                             <div class="mb-3">
                                 <label for="pts_name" class="form-label">Nama Tanaman</label>
                                 <input type="text" name="pts_name" id="pts_name"
@@ -30,7 +29,6 @@
                                     value="{{ old('pts_name') }}" required>
                             </div>
 
-                            {{-- Jenis Tanaman (pilih dropdown seperti create, bukan input text) --}}
                             <div class="mb-3">
                                 <label for="tps_id" class="form-label">Jenis Tanaman</label>
                                 <select name="tps_id" id="tps_id" class="form-select" required>
@@ -44,7 +42,6 @@
                                 </select>
                             </div>
 
-                            {{-- Stok --}}
                             <div class="mb-3">
                                 <label for="pts_stok" class="form-label">Stok</label>
                                 <input type="number" name="pts_stok" id="pts_stok"
@@ -52,7 +49,6 @@
                                     value="{{ old('pts_stok') }}" required>
                             </div>
 
-                            {{-- Tanggal Tanam --}}
                             <div class="mb-3">
                                 <label for="pts_date" class="form-label">Tanggal Tanam</label>
                                 <input type="date" name="pts_date" id="pts_date"
@@ -60,7 +56,6 @@
                                     value="{{ old('pts_date') }}" required>
                             </div>
 
-                            {{-- Lokasi --}}
                             <div class="mb-3">
                                 <label for="lcn_id" class="form-label">Lokasi</label>
                                 <select name="lcn_id" id="lcn_id" class="form-select" required>
@@ -74,14 +69,12 @@
                             </select>
                             </div>
 
-                            {{-- Deskripsi --}}
                             <div class="mb-3">
                                 <label for="pts_description" class="form-label">Deskripsi</label>
                                 <textarea name="pts_description" id="pts_description" rows="4"
                                     class="form-control">{{ old('pts_description') }}</textarea>
                             </div>
 
-                            {{-- Gambar --}}
                             <div class="mb-3">
                                 <label for="pts_img_path" class="form-label">Gambar</label>
                                 <input type="file" name="pts_img_path" id="pts_img_path"
